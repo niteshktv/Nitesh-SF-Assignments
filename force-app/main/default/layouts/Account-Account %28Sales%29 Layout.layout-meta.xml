@@ -276,6 +276,10 @@
         <fields>NAME</fields>
         <relatedList>ClientManager__c.Client__c</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Consultant__c.Employer__c</relatedList>
+    </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <runAssignmentRulesDefault>false</runAssignmentRulesDefault>
     <showEmailCheckbox>true</showEmailCheckbox>
