@@ -1,0 +1,7 @@
+Hiii ,{!WorkStatement__c.OwnerFirstName}
+
+This is a workstatement approval process email.
+{!WorkStatement__c.Signer__c}
+
+Best,
+{!WorkStatement__c.Client__c}
