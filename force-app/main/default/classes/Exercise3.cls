@@ -1,27 +1,33 @@
 public with sharing class Exercise3 {
     // returns all names of the consultants working for that employer as a list
     public static List<Consultant__c> getConsultantsToEmployer(ID accountId) {
-        List<Consultant__c> consultantsList = [SELECT  Name FROM Consultant__c WHERE Employer__r.Id = :accountId];
-        return consultantsList;
+        List<Hiring__c> hiringList = [SELECT Consultant__r.Name FROM Hiring__c WHERE Employer__r.ID = :AccountID ];
+        List<String> consultantsNameList = new List<String>();
+        for(Hiring__c h : hiringList){
+            consultantsNameList.add(h.Consultant__r.Name);
+        }
+        return consultantsNameList;
     }
 
+    //returns a map where the key is Employer and value is set of ConsultantId in it.
     public static Map<Account, Set<Id>> getEmployerAndConsultants(){
        Map<Account, Set<Id>> employerConsultantMap = new Map<Account, Set<Id>>();
-        List<Account> accountList=[Select Id, (Select Id from Consultants__r) from Account where Id IN (Select Employer__c from Consultant__c)];
-        Set<Id> ConsultantIdSet;
-        for(Account account:accountList){
+        List<Account> accountList=[Select ID,(select Consultant__c From Hirings__r) from Account];
+        Set<Id> consultantIdSet;
+        for (Account account : accountList) {
             consultantIdSet = new Set<Id>();
-            for(Consultant__c consultant:account.Consultants__r){
-                ConsultantIdSet.add(consultant.Id);
+            for (Hiring__c hr : account.Hirings__r) {
+                consultantIdSet.add(hr.Consultant__c);
             }
             employerConsultantMap.put(account, consultantIdSet);
         }
-        //for(Account acc: employerConsultantMap.keySet()){
-            //System.debug('Id-->' + acc.Id + 'set'+ employerConsultantMap.get(acc));
-       //}
+        for(Account acc: employerConsultantMap.keySet()){
+            System.debug('Id-->' + acc.Id + 'set'+ employerConsultantMap.get(acc));
+       }
         return employerConsultantMap;
     }
 
+    //returns the number of working days between two dates excluding both days.
     public static Integer getWorkingDaysBetween(Date startDate, Date endDate) {
         Integer workingDays = 0;
         Integer daysBetween = startDate.daysBetween(endDate);
