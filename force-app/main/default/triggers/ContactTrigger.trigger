@@ -1,5 +1,5 @@
 trigger ContactTrigger on Contact ( after update) {
-    ContactWithAccount.isPrimaryContact(Trigger.new);
-    ContactWithAccount.setParentAccountsEmail(Trigger.new);
-    ContactWithAccount.getContactsWithAccount(Trigger.new);
+    ContactAccountHandler.isPrimaryContact(Trigger.new);
+    ContactAccountHandler.setParentAccountsEmail(Trigger.new);
+    ContactAccountHandler.getContactsWithAccount(Trigger.new);
 }
