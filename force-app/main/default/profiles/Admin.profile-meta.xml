@@ -469,6 +469,10 @@
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
+        <tab>Hiring__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
         <tab>Position__c</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
