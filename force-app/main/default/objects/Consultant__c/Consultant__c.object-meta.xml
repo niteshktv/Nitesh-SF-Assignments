@@ -155,8 +155,9 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Consultant</label>
     <nameField>
-        <label>Consultant  Name</label>
-        <type>Text</type>
+        <displayFormat>C-{000}</displayFormat>
+        <label>Consultant Number</label>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Consultants</pluralLabel>
     <searchLayouts></searchLayouts>

@@ -10,7 +10,7 @@ Ques-3 Select all consultants and their education
     SELECT Name, Education__c FROM Consultant__c
 
 Ques-4 Select all Employers with their open position in a subquery.
-    Select Name, (Select Name from Positions__r) from Account where Id IN (Select Employer__c from Position__c)
+    Select Name, (Select Name from Positions__r) from Account
 
 Ques-5 Select all consultants who are married
     SELECT Name,Married__c FROM Consultant__c WHERE Married__c=true
@@ -19,7 +19,7 @@ Ques-6 All consultants where DOB > Year 2000
     SELECT Name,DOB__c FROM Consultant__c WHERE CALENDAR_YEAR(DOB__c) > 2000
 
 Ques-7 All employers with positions as subquery where position name starts with “S”
-    Select Name, (Select Name from Positions__r where Name like 'S%') from Account where Id IN (Select Employer__c from Position__c)
+    Select Name, (Select Name from Positions__r where Name like 'S%') from Account
 
 Ques-8 All consultants who are working with ‘TV’ as their employer
     Select Employer__r.Name from Consultant__c where Employer__c != null and Name = 'TV'
@@ -39,5 +39,5 @@ Ques-1 Find all persons with name as “Demo” i.e (consultants & HR)
     FIND {Demo} IN ALL FIELDS RETURNING Account(Name), Consultant__c(Name)
 
 Ques-2 Find all male persons with name as “John” i.e (Consultants or HR)
-    FIND {Demo} IN ALL FIELDS RETURNING Consultant__c(Name WHERE Sex__c = 'Male')
+    FIND {John} IN ALL FIELDS RETURNING Consultant__c(Name WHERE Sex__c = 'Male')
 
