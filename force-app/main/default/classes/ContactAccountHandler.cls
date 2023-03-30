@@ -32,24 +32,26 @@ public with sharing class ContactAccountHandler {
                 }
             }
             List<Account> accountList = [Select Id, Name, ParentId, (Select Id, Name, Email, Is_Primary__c from Contacts) from Account where Id in :accountIdSet];
-            System.debug(accountList);
+            //get all accounts
             Map<Id, Account> accountMap = new Map<Id, Account>();
             for (Account account : accountList) {
                 accountMap.put(account.Id, account);
             }
-    
+            //get parent account
             Set<Id> parentAccountIdSet = new Set<Id>();
             for (Account account : accountList) {
                 parentAccountIdSet.add(account.ParentId);
             }
     
             List<Contact> parentAccountContactList = [Select Id, AccountId, Email, Name, Is_Primary__c from Contact where AccountId in :parentAccountIdSet and Is_Primary__c = true];
+            //get all contacts of parent accounts
             Map<Id, Contact> parentContactMap = new Map<Id, Contact>();
             for (Contact contact : parentAccountContactList) {
                 parentContactMap.put(contact.AccountId, contact);
             }
     
             List<Contact> updatedContactList = new List<Contact>();
+            //setting the email of parents accounts primary contacts email
             for (Contact contact : contactList) {
                 if (accountMap.containsKey(contact.AccountId) && parentContactMap.containsKey(accountMap.get(contact.AccountId).ParentId)) {
                     Contact parentContact = parentContactMap.get(accountMap.get(contact.AccountId).ParentId);
