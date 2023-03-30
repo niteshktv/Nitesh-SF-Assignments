@@ -1,0 +1,43 @@
+Exercise-2
+SOQL Queries
+Ques-1 Write SOQL SELECT all Consultants Name,Dob,Sex WHERE LastName starts with “S”
+    SELECT Name, Last_Name__c, DOB__c, Sex__c FROM Consultant__c WHERE Last_Name__c LIKE 'S%'
+
+Ques-2 SELECT All consultants WHERE Education is BE
+    SELECT Name, Education__c FROM Consultant__c WHERE Education__c = 'BE'
+
+Ques-3 SELECT all consultants and their education
+    SELECT Name, Education__c FROM Consultant__c
+
+Ques-4 SELECT all Employers with their open position in a subquery.
+    SELECT Name, (SELECT Name FROM Positions__r) FROM Account
+
+Ques-5 SELECT all consultants who are married
+    SELECT Name,Married__c FROM Consultant__c WHERE Married__c=true
+
+Ques-6 All consultants WHERE DOB > Year 2000
+    SELECT Name,DOB__c FROM Consultant__c WHERE CALENDAR_YEAR(DOB__c) > 2000
+
+Ques-7 All employers with positions as subquery WHERE position name starts with “S”
+    SELECT Name, (SELECT Name FROM Positions__r WHERE Name like 'S%') FROM Account
+
+Ques-8 All consultants who are working with ‘TV’ as their employer
+    SELECT Name, (SELECT Consultant__c FROM Hirings__r) FROM Account WHERE Name='TV'
+    
+Ques-9 All consultants and their comployers who are working on the position of Software Engineer
+    SELECT Employer__r.Name , Consultant__r.Name, Position__r.Name FROM Hiring__c WHERE Position__r.Name='Software Engineer'
+
+Ques-10 SELECT no. of consultants per employers
+    SELECT Employer__r.Name, Consultant__r.Id, COUNT(Id) FROM Hiring__c GROUP BY  Consultant__r.Id, Employer__r.Name ORDER BY COUNT(Id) desc
+
+Ques-11 Monthly Birthday Count of consultants with sorting
+    SELECT COUNT(Name), CALENDAR_MONTH(DOB__c) FROM Consultant__c WHERE DOB__c != null GROUP BY CALENDAR_MONTH(DOB__c) ORDER BY CALENDAR_MONTH(DOB__c)
+
+
+// SOSL Query
+Ques-1 Find all persons with name as “Demo” i.e (consultants & HR)
+    FIND {Demo} IN ALL FIELDS RETURNING Account(Name), Consultant__c(Name)
+
+Ques-2 Find all male persons with name as “John” i.e (Consultants or HR)
+    FIND {John} IN ALL FIELDS RETURNING Consultant__c(Name WHERE Sex__c = 'Male')
+
