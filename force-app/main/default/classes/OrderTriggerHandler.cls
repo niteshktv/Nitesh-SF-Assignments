@@ -7,7 +7,7 @@ public with sharing class OrderTriggerHandler {
             }
         }
         BusinessHours  bussinessHours = [SELECT Id, Name FROM BusinessHours Where Name='Test Bussiness Hours' limit 1]; 
-        List<OrderItem> orderItemList = [select id, Product2.Name, Product2.ProductCode , Order.AccountId, Order.OpportunityId, Order.EffectiveDate, TotalPrice, Quantity from OrderItem Where OrderId IN :orderIdSet AND Product2.Family='Software'];
+        List<OrderItem> orderItemList = [select id, Product2.Name, Product2.ProductCode , Order.AccountId, Order.OpportunityId, Order.CreatedDate,Product2.POC__c, UnitPrice, Quantity from OrderItem Where OrderId IN :orderIdSet AND Product2.Family='Software'];
         List<Asset> assetList = new List<Asset>();
         Set<Id> opportunityIdSet = new Set<Id>();
         Map<String, Entitlement> assetToEntitlementMap = new Map<String, Entitlement>();
@@ -28,8 +28,13 @@ public with sharing class OrderTriggerHandler {
                 entitlement.Name = 'Ent ' + orderItem.Product2.Name+' '+ orderItem.Product2.ProductCode+' '+i;
                 entitlement.AccountId = orderItem.Order.AccountId;
                 entitlement.StartDate = Date.newInstance(orderItem.Order.CreatedDate.year(), orderItem.Order.CreatedDate.month(),orderItem.Order.CreatedDate.day());
-                entitlement.EndDate = Date.newInstance(orderItem.Order.CreatedDate.year(), orderItem.Order.CreatedDate.month(),orderItem.Order.CreatedDate.day()+365);
-
+                if(orderItem.Product2.POC__C==true){
+                    entitlement.EndDate = Date.newInstance(orderItem.Order.CreatedDate.year(), orderItem.Order.CreatedDate.month(),orderItem.Order.CreatedDate.day()+90);
+                }else{
+                    entitlement.EndDate = Date.newInstance(orderItem.Order.CreatedDate.year(), orderItem.Order.CreatedDate.month(),orderItem.Order.CreatedDate.day()+365);
+                }
+                entitlement.BusinessHoursId = bussinessHours.Id;
+                
                 assetList.add(asset);
                 opportunityIdSet.add(orderItem.Order.OpportunityId);
                 assetToEntitlementMap.put(asset.Name, entitlement);
@@ -40,7 +45,7 @@ public with sharing class OrderTriggerHandler {
             assetToEntitlementMap.get(asset.Name).AssetId = asset.Id;
         }
         insert assetToEntitlementMap.values();
-        
+
         List<OpportunityContactRole> opportunityContactRoleList = [SELECT Id,ContactId,OpportunityId, IsPrimary, Role FROM OpportunityContactRole WHERE IsPrimary=true and OpportunityId IN :opportunityIdSet];
         List<EntitlementContact> entitlementContactList = new List<EntitlementContact>();
         for(OpportunityContactRole opportunityContactRole : opportunityContactRoleList){
@@ -53,5 +58,30 @@ public with sharing class OrderTriggerHandler {
             }
         }
         insert entitlementContactList;
+    }
+
+    public static void updateAssetStatus(List<Order> orderList, Map<Id, Order> oldOrderMap){
+        Set<Id> orderIdSet = new Set<Id>();
+        for(Order order: orderList){
+            if(oldOrderMap.containskey(Order.Id) && oldOrderMap.get(Order.Id).Status == 'Activited' && Order.Status == 'Shipped'){
+                orderIdSet.add(order.Id);
+            }
+        }
+        Set<String> assetNameSet = new Set<String>();
+        List<OrderItem> orderItemList = [SELECT Id, Product2.Name, Product2.ProductCode, Quantity from OrderItem WHERE OrderId IN :orderIdSet];
+        for(OrderItem orderItem : orderItemList){
+            for(Integer i=0; i<orderItem.Quantity; i++){
+                String assetName = 'Asset '+orderItem.Product2.Name + ' ' + orderItem.Product2.ProductCode + ' %';
+                assetNameSet.add(assetName);
+            }
+        }
+
+        //get asset Record
+        List<Asset> assetList = [SELECT Id, Name, Status, Actual_Ship_Date__c FROM Asset WHERE Name LIKE :assetNameSet];
+        for(Asset asset : assetList){
+            asset.Status = 'Shipped';
+            asset.Actual_Ship_Date__c = Date.today();
+        }
+        update assetList;
     }
 }
