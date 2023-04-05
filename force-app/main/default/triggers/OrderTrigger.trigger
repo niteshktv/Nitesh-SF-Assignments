@@ -1,3 +1,3 @@
-trigger OrderTrigger on Order (after insert) {
-    //OrderTriggerHandler.createAssetRecord(Trigger.new);
+trigger OrderTrigger on Order (after update) {
+    OrderTriggerHandler.createAssetRecord(Trigger.new, Trigger.oldMap);
 }
