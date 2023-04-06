@@ -46,7 +46,7 @@ public with sharing class OrderTriggerHandler {
         }
         insert assetToEntitlementMap.values();
 
-        List<OpportunityContactRole> opportunityContactRoleList = [SELECT Id,ContactId,OpportunityId, IsPrimary, Role FROM OpportunityContactRole WHERE IsPrimary=true and OpportunityId IN :opportunityIdSet];
+        List<OpportunityContactRole> opportunityContactRoleList = [SELECT Id,ContactId,OpportunityId, IsPrimary, Role FROM OpportunityContactRole WHERE Role='Primary Support' and OpportunityId IN :opportunityIdSet];
         List<EntitlementContact> entitlementContactList = new List<EntitlementContact>();
         for(OpportunityContactRole opportunityContactRole : opportunityContactRoleList){
             for(Entitlement entitlement : assetToEntitlementMap.values()){
@@ -92,7 +92,7 @@ public with sharing class OrderTriggerHandler {
             opportunityIdSet.add(order.OpportunityId);
         }
     }
-    List<OpportunityContactRole> opportunityContactRoleList = [Select Id, Contact.Id, Contact.Name, Contact.Email, Contact.DripCampaign__c, OpportunityId, IsPrimary from OpportunityContactRole where IsPrimary = true and OpportunityId in :opportunityIdSet and Contact.DripCampaign__c = false];
+    List<OpportunityContactRole> opportunityContactRoleList = [Select Id, Contact.Id, Contact.Name, Contact.Email, Contact.DripCampaign__c, OpportunityId, Role from OpportunityContactRole where Role='Primary Support' and OpportunityId in :opportunityIdSet and Contact.DripCampaign__c = false];
     
     Set<Id> contactIdSet = new Set<Id>();
     for(OpportunityContactRole opportunityContactRole : opportunityContactRoleList){
@@ -105,4 +105,5 @@ public with sharing class OrderTriggerHandler {
 
     update contactList;
    }
+   
 }
