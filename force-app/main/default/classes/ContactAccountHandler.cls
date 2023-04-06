@@ -67,7 +67,14 @@ public with sharing class ContactAccountHandler {
         }
     
         public static void getContactsWithAccount(List<Contact> contactList){
-            List<Account> accountList = [Select Id, Name From Account];
+
+            Set<Id> accountIdSet = new Set<Id>();
+            for (Contact contact : contactList) {
+                if (contact.AccountId != null) {
+                    accountIdSet.add(contact.AccountId);
+                }
+            }
+            List<Account> accountList = [Select Id, Name From Account where Id in :accountIdSet];
             for(Account account: accountList){
                 Integer contactCount = 0;
                 for(Contact contact : contactList){
