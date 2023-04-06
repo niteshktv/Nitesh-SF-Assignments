@@ -84,4 +84,25 @@ public with sharing class OrderTriggerHandler {
         }
         update assetList;
     }
+
+   public static void addContactsToDripCampagin(List<Order> orderList){
+    set<Id> opportunityIdSet = new set<Id>();
+    for(Order order: orderList){
+        if(order.Status == 'Shipped' && order.OpportunityId != null){
+            opportunityIdSet.add(order.OpportunityId);
+        }
+    }
+    List<OpportunityContactRole> opportunityContactRoleList = [Select Id, Contact.Id, Contact.Name, Contact.Email, Contact.DripCampaign__c, OpportunityId, IsPrimary from OpportunityContactRole where IsPrimary = true and OpportunityId in :opportunityIdSet and Contact.DripCampaign__c = false];
+    
+    Set<Id> contactIdSet = new Set<Id>();
+    for(OpportunityContactRole opportunityContactRole : opportunityContactRoleList){
+        contactIdSet.add(opportunityContactRole.Contact.Id);
+    }
+    List<Contact> contactList = [Select Id, DripCampaign__c from Contact where Id in :contactIdSet];
+    for (Contact contact : contactList) {
+        contact.DripCampaign__c = true;
+    }
+
+    update contactList;
+   }
 }
