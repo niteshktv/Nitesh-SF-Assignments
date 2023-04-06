@@ -1,6 +1,6 @@
 public with sharing class Exercise3 {
     // returns all names of the consultants working for that employer as a list
-    public static List<Consultant__c> getConsultantsToEmployer(ID accountId) {
+    public static List<Consultant__c> getConsultantListForEmployer(ID accountId) {
         List<Hiring__c> hiringList = [SELECT Consultant__r.Name FROM Hiring__c WHERE Employer__r.ID = :AccountID ];
         List<String> consultantsNameList = new List<String>();
         for(Hiring__c h : hiringList){
@@ -10,8 +10,8 @@ public with sharing class Exercise3 {
     }
 
     //returns a map where the key is Employer and value is set of ConsultantId in it.
-    public static Map<Account, Set<Id>> getEmployerAndConsultants(){
-       Map<Account, Set<Id>> employerConsultantMap = new Map<Account, Set<Id>>();
+    public static Map<Account, Set<Id>> mapEmployerWithConsultantsIds(){
+       Map<Account, Set<Id>> employerWithConsultantIdsMap = new Map<Account, Set<Id>>();
         List<Account> accountList=[Select ID,(select Consultant__c From Hirings__r) from Account];
         Set<Id> consultantIdSet;
         for (Account account : accountList) {
@@ -19,12 +19,9 @@ public with sharing class Exercise3 {
             for (Hiring__c hr : account.Hirings__r) {
                 consultantIdSet.add(hr.Consultant__c);
             }
-            employerConsultantMap.put(account, consultantIdSet);
+            employerWithConsultantIdsMap.put(account, consultantIdSet);
         }
-        for(Account acc: employerConsultantMap.keySet()){
-            System.debug('Id-->' + acc.Id + 'set'+ employerConsultantMap.get(acc));
-       }
-        return employerConsultantMap;
+        return employerWithConsultantIdsMap;
     }
 
     //returns the number of working days between two dates excluding both days.
