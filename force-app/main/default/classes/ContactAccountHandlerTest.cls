@@ -8,21 +8,28 @@ public with sharing class ContactAccountHandlerTest {
         insert acc2;
         
         List<Contact> contactList = new List<Contact>();
-        for(Integer i=0; i<3; i++){
+        for(Integer i=0; i<10; i++){
             Contact contact = new Contact();
             contact.LastName='Demo Contact '+i;
             contact.AccountId=acc1.id;
-            contact.Is_Primary__c= true;
+            if(i>5){
+                contact.Is_Primary__c= true;
+            }
             contactList.add(contact);
         }
         
-        try{
-            insert contactList;
-        }catch(Exception e){
-            system.assertEquals(true, e.getMessage().contains('Primary Contact Already Exists'));
+        Test.startTest();
+        List<Database.SaveResult> results = Database.insert(contactList, false);
+        Test.stopTest();
+        for (Database.SaveResult sr : results) {
+            if (!sr.isSuccess()) {
+                for(Database.Error err : sr.getErrors()) {                
+                    System.assertEquals(true,err.getMessage().contains('Primary Contact Already Exists'));
+                }
+            }
         }
         
-        system.assertEquals(0, [SELECT id from Contact].size());
+        system.assertEquals(5, [SELECT id from Contact].size());
     }
     
     @isTest static void copyParentsPrimaryContactEmailTest(){
