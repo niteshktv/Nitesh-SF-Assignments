@@ -36,7 +36,7 @@ public with sharing class ContactAccountHandler {
             //get parent account Id
             Set<Id> parentAccountIdSet = new Set<Id>();
             
-            for(Account account : accountMap.keyset()){
+            for(Account account : accountMap.values()){
                 parentAccountIdSet.add(account.ParentId);
             }
     

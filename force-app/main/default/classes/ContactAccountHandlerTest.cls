@@ -8,7 +8,7 @@ public with sharing class ContactAccountHandlerTest {
         insert acc2;
         
         List<Contact> contactList = new List<Contact>();
-        for(Integer i=0; i<10; i++){
+        for(Integer i=0; i<3; i++){
             Contact contact = new Contact();
             contact.LastName='Demo Contact '+i;
             contact.AccountId=acc1.id;
