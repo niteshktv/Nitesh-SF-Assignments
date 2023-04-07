@@ -92,7 +92,7 @@ public with sharing class OrderTriggerHandler {
             opportunityIdSet.add(order.OpportunityId);
         }
     }
-    List<OpportunityContactRole> opportunityContactRoleList = [Select Id, Contact.Id, Contact.Name, Contact.Email, Contact.DripCampaign__c, OpportunityId, Role from OpportunityContactRole where ROle='Primary Support' and OpportunityId in :opportunityIdSet and Contact.DripCampaign__c = false];
+    List<OpportunityContactRole> opportunityContactRoleList = [Select Id, Contact.Id, Contact.Name, Contact.Email, Contact.DripCampaign__c, OpportunityId, Role from OpportunityContactRole where ROle='Primary Support'and OpportunityId in :opportunityIdSet and Contact.DripCampaign__c = false];
     
     Set<Id> contactIdSet = new Set<Id>();
     for(OpportunityContactRole opportunityContactRole : opportunityContactRoleList){
