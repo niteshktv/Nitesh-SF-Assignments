@@ -67,7 +67,6 @@ public with sharing class ContactAccountHandler {
         }
     
         public static void getContactsWithAccount(List<Contact> contactList){
-
             Set<Id> accountIdSet = new Set<Id>();
             for (Contact contact : contactList) {
                 if (contact.AccountId != null) {
