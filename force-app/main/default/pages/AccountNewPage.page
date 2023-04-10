@@ -1,0 +1,33 @@
+<apex:page standardController="Account">
+         <head>
+         	<meta charset="utf-8" />
+      		<meta name="viewport" content="width=device-width, initial-scale=1" />
+      		<title>Account New Page</title>
+      		<apex:slds />
+         </head>
+         <body>
+            <apex:form >
+      		<apex:pageBlock title="New Account">
+        	<!--Buttons -->
+         		<apex:pageBlockButtons >
+            		<apex:commandButton action="{!save}" value="Save"/>
+                    <apex:commandButton action="{!cancel}" value="Cancel" />
+         		</apex:pageBlockButtons>
+         	<!--Input form -->
+         	<apex:pageBlockSection columns="2" title="Account Information">
+         		<apex:inputField value="{!Account.Name}"/>
+         		<apex:inputField value="{!Account.Phone}"/>
+                <apex:inputField value="{!Account.ParentId}"/>
+         		<apex:inputField value="{!Account.Fax}"/>
+                <apex:inputField value="{!Account.Type}"/>
+                <apex:inputField value="{!Account.Rating}"/>
+        	</apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" title="Additional Information">
+         		<apex:inputField value="{!Account.Industry}"/>
+        	</apex:pageBlockSection>
+      		</apex:pageBlock>
+      		</apex:form>
+
+         </body>
+
+</apex:page>
