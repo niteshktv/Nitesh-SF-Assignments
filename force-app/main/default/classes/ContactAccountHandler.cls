@@ -1,6 +1,6 @@
 public with sharing class ContactAccountHandler {
         public static void isPrimaryContact(List<Contact> contactList){
-            List<Account> accountList = new List<Account>([Select Account.Name, (SELECT Name, Email, Is_Primary__c FROM Contacts) FROM Account]);
+            List<Account> accountList = new List<Account>([Select Account.Name, (SELECT Name, Email, Is_Primary__c FROM Contacts WHERE Is_Primary__c=true) FROM Account]);
             Map<Id, Contact> contactMap = new Map<Id, Contact>();
             for (Contact contact : contactList) {
                 if (contact.Is_Primary__c) {
@@ -23,7 +23,7 @@ public with sharing class ContactAccountHandler {
             } 
         }
     
-        public static void setParentAccountsEmail(List<Contact> contactList){
+        public static void setParentAccountEmail(List<Contact> contactList){
             Set<Id> accountIdSet = new Set<Id>();
             for (Contact contact : contactList) {
                 if (contact.Is_Primary__c) {
@@ -31,15 +31,12 @@ public with sharing class ContactAccountHandler {
                     accountIdSet.add(contact.AccountId);
                 }
             }
-            List<Account> accountList = [Select Id, Name, ParentId, (Select Id, Name, Email, Is_Primary__c from Contacts) from Account where Id in :accountIdSet];
-            //get all accounts
-            Map<Id, Account> accountMap = new Map<Id, Account>();
-            for (Account account : accountList) {
-                accountMap.put(account.Id, account);
-            }
-            //get parent account
+            
+            Map<Id, Account> accountMap = new Map<Id, Account>([Select Id, Name, ParentId, (Select Id, Name, Email, Is_Primary__c from Contacts) from Account where Id in :accountIdSet]);
+            //get parent account Id
             Set<Id> parentAccountIdSet = new Set<Id>();
-            for (Account account : accountList) {
+            
+            for(Account account : accountMap.values()){
                 parentAccountIdSet.add(account.ParentId);
             }
     
