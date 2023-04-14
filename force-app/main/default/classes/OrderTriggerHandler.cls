@@ -63,7 +63,7 @@ public with sharing class OrderTriggerHandler {
     public static void updateAssetStatus(List<Order> orderList, Map<Id, Order> oldOrderMap){
         Set<Id> orderIdSet = new Set<Id>();
         for(Order order: orderList){
-            if(oldOrderMap.containskey(Order.Id) && oldOrderMap.get(Order.Id).Status == 'Activited' && Order.Status == 'Shipped'){
+            if(oldOrderMap.containskey(order.Id) && oldOrderMap.get(order.Id).Status == 'Activated' && order.Status == 'Shipped'){
                 orderIdSet.add(order.Id);
             }
         }
