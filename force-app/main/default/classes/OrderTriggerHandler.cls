@@ -6,11 +6,12 @@ public with sharing class OrderTriggerHandler {
                 orderIdSet.add(order.Id);
             }
         }
-        BusinessHours  bussinessHours = [SELECT Id, Name FROM BusinessHours Where Name='Test Bussiness Hours' limit 1]; 
-        List<OrderItem> orderItemList = [select id, Product2.Name, Product2.ProductCode , Order.AccountId, Order.OpportunityId, Order.CreatedDate,Product2.POC__c, UnitPrice, Quantity from OrderItem Where OrderId IN :orderIdSet AND Product2.Family='Software'];
+        BusinessHours  bussinessHours = [SELECT Id, Name FROM BusinessHours WHERE Name='Test Bussiness Hours' LIMIT 1]; 
+        List<OrderItem> orderItemList = [SELECT id, Product2.Name, Product2.ProductCode , Order.AccountId, Order.OpportunityId, Order.CreatedDate,Product2.POC__c, UnitPrice, Quantity from OrderItem WHERE OrderId IN :orderIdSet AND Product2.Family='Software'];
         List<Asset> assetList = new List<Asset>();
         Set<Id> opportunityIdSet = new Set<Id>();
-        Map<String, Entitlement> assetToEntitlementMap = new Map<String, Entitlement>();
+        Map<String, Entitlement> assetNameWithEntitlementMap = new Map<String, Entitlement>();
+        Map<Id,Map<String,Entitlement>> mapOfAccountEntitlement = new Map<Id,Map<String,Entitlement>>();
         for(OrderItem orderItem : orderItemList){
             for(Integer i=0; i<orderItem.Quantity; i++ ){
                 Asset asset = new Asset();
@@ -28,7 +29,7 @@ public with sharing class OrderTriggerHandler {
                 entitlement.Name = 'Ent ' + orderItem.Product2.Name+' '+ orderItem.Product2.ProductCode+' '+i;
                 entitlement.AccountId = orderItem.Order.AccountId;
                 entitlement.StartDate = Date.newInstance(orderItem.Order.CreatedDate.year(), orderItem.Order.CreatedDate.month(),orderItem.Order.CreatedDate.day());
-                if(orderItem.Product2.POC__C==true){
+                if(orderItem.Product2.POC__C){
                     entitlement.EndDate = Date.newInstance(orderItem.Order.CreatedDate.year(), orderItem.Order.CreatedDate.month(),orderItem.Order.CreatedDate.day()+90);
                 }else{
                     entitlement.EndDate = Date.newInstance(orderItem.Order.CreatedDate.year(), orderItem.Order.CreatedDate.month(),orderItem.Order.CreatedDate.day()+365);
@@ -37,19 +38,28 @@ public with sharing class OrderTriggerHandler {
                 
                 assetList.add(asset);
                 opportunityIdSet.add(orderItem.Order.OpportunityId);
-                assetToEntitlementMap.put(asset.Name, entitlement);
+                assetNameWithEntitlementMap.put(asset.Name, entitlement);
+
             }
+            mapOfAccountEntitlement.put(orderItem.Order.AccountId, assetNameWithEntitlementMap);
+
         }  
         insert assetList;
-        for(Asset asset : assetList){
-            assetToEntitlementMap.get(asset.Name).AssetId = asset.Id;
+        List<Entitlement> mainEntitlement=new List<Entitlement>();
+        for(OrderItem ord : orderItemList)
+        {
+            for(Asset asset : assetList){
+                mapOfAccountEntitlement.get(ord.Order.AccountId).get(asset.Name).AssetId = asset.Id;
+                mainEntitlement.add(mapOfAccountEntitlement.get(ord.Order.AccountId).get(asset.Name));
+            }
         }
-        insert assetToEntitlementMap.values();
+        
+         insert mainEntitlement;
 
         List<OpportunityContactRole> opportunityContactRoleList = [SELECT Id,ContactId,OpportunityId, IsPrimary, Role FROM OpportunityContactRole WHERE role='Primary Support' and OpportunityId IN :opportunityIdSet];
         List<EntitlementContact> entitlementContactList = new List<EntitlementContact>();
         for(OpportunityContactRole opportunityContactRole : opportunityContactRoleList){
-            for(Entitlement entitlement : assetToEntitlementMap.values()){
+            for(Entitlement entitlement : mainEntitlement){
                 EntitlementContact entitlementContact = new EntitlementContact();
                 entitlementContact.ContactId = opportunityContactRole.ContactId;
                 entitlementContact.EntitlementId = entitlement.Id;
@@ -92,13 +102,13 @@ public with sharing class OrderTriggerHandler {
             opportunityIdSet.add(order.OpportunityId);
         }
     }
-    List<OpportunityContactRole> opportunityContactRoleList = [Select Id, Contact.Id, Contact.Name, Contact.Email, Contact.DripCampaign__c, OpportunityId, Role from OpportunityContactRole where ROle='Primary Support'and OpportunityId in :opportunityIdSet and Contact.DripCampaign__c = false];
+    List<OpportunityContactRole> opportunityContactRoleList = [SELECT Id, Contact.Id, Contact.Name, Contact.Email, Contact.DripCampaign__c, OpportunityId, Role from OpportunityContactRole WHERE ROle='Primary Support'and OpportunityId IN :opportunityIdSet and Contact.DripCampaign__c = false];
     
     Set<Id> contactIdSet = new Set<Id>();
     for(OpportunityContactRole opportunityContactRole : opportunityContactRoleList){
         contactIdSet.add(opportunityContactRole.Contact.Id);
     }
-    List<Contact> contactList = [Select Id, DripCampaign__c from Contact where Id in :contactIdSet];
+    List<Contact> contactList = [SELECT Id, DripCampaign__c from Contact WHERE Id IN :contactIdSet];
     for (Contact contact : contactList) {
         contact.DripCampaign__c = true;
     }
@@ -113,7 +123,7 @@ public with sharing class OrderTriggerHandler {
         }
     }
 
-    List<OpportunityContactRole> opportunityContactRoleList = [Select Id, Contact.Id, Contact.Name, Contact.Email, OpportunityId, IsPrimary,Role from OpportunityContactRole where Role = 'Primary Support' and OpportunityId in :oppIdSet and Contact.Email != null];
+    List<OpportunityContactRole> opportunityContactRoleList = [SELECT Id, Contact.Id, Contact.Name, Contact.Email, OpportunityId, IsPrimary,Role from OpportunityContactRole WHERE Role = 'Primary Support' and OpportunityId IN :oppIdSet and Contact.Email != null];
 
     Map<String, String> usernameToNameMap = new Map<String, String>();
     for (OpportunityContactRole opportunityContactRole : opportunityContactRoleList) {
@@ -122,9 +132,9 @@ public with sharing class OrderTriggerHandler {
 
     if (usernameToNameMap.size() == 0) return;
 
-    Profile customerCommunityLoginUserProfile = [Select Id, Name from Profile where Name = 'Customer Community Login User' limit 1];
+    Profile customerCommunityLoginUserProfile = [SELECT Id, Name from Profile WHERE Name = 'Customer Community Login User' LIMIT 1];
 
-    List<User> userList = [Select Id, Name, Email, Username, IsActive from User where Username in :usernameToNameMap.keySet()];
+    List<User> userList = [SELECT Id, Name, Email, Username, IsActive from User WHERE Username IN :usernameToNameMap.keySet()];
     Set<Id> userIdSet = new Set<Id>();
     List<User> newUserList = new List<User>();
     for (String username : usernameToNameMap.keySet()) {
@@ -177,7 +187,7 @@ public with sharing class OrderTriggerHandler {
 
 @future
 static void updateUserToActive(Set<Id> userIdSet) {
-    List<User> userList = [Select Id, IsActive from User where Id in :userIdSet];
+    List<User> userList = [SELECT Id, IsActive from User WHERE Id IN :userIdSet];
 
     for (User user : userList) {
         user.IsActive = true;
