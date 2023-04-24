@@ -46,7 +46,7 @@ public with sharing class OrderTriggerHandler {
         }
         insert assetToEntitlementMap.values();
 
-        List<OpportunityContactRole> opportunityContactRoleList = [SELECT Id,ContactId,OpportunityId, IsPrimary, Role FROM OpportunityContactRole WHERE Role='Primary Support' and OpportunityId IN :opportunityIdSet];
+        List<OpportunityContactRole> opportunityContactRoleList = [SELECT Id,ContactId,OpportunityId, IsPrimary, Role FROM OpportunityContactRole WHERE role='Primary Support' and OpportunityId IN :opportunityIdSet];
         List<EntitlementContact> entitlementContactList = new List<EntitlementContact>();
         for(OpportunityContactRole opportunityContactRole : opportunityContactRoleList){
             for(Entitlement entitlement : assetToEntitlementMap.values()){
@@ -63,7 +63,7 @@ public with sharing class OrderTriggerHandler {
     public static void updateAssetStatus(List<Order> orderList, Map<Id, Order> oldOrderMap){
         Set<Id> orderIdSet = new Set<Id>();
         for(Order order: orderList){
-            if(oldOrderMap.containskey(Order.Id) && oldOrderMap.get(Order.Id).Status == 'Activited' && Order.Status == 'Shipped'){
+            if(oldOrderMap.containskey(order.Id) && oldOrderMap.get(order.Id).Status == 'Activated' && order.Status == 'Shipped'){
                 orderIdSet.add(order.Id);
             }
         }
@@ -92,7 +92,7 @@ public with sharing class OrderTriggerHandler {
             opportunityIdSet.add(order.OpportunityId);
         }
     }
-    List<OpportunityContactRole> opportunityContactRoleList = [Select Id, Contact.Id, Contact.Name, Contact.Email, Contact.DripCampaign__c, OpportunityId, Role from OpportunityContactRole where Role='Primary Support' and OpportunityId in :opportunityIdSet and Contact.DripCampaign__c = false];
+    List<OpportunityContactRole> opportunityContactRoleList = [Select Id, Contact.Id, Contact.Name, Contact.Email, Contact.DripCampaign__c, OpportunityId, Role from OpportunityContactRole where ROle='Primary Support'and OpportunityId in :opportunityIdSet and Contact.DripCampaign__c = false];
     
     Set<Id> contactIdSet = new Set<Id>();
     for(OpportunityContactRole opportunityContactRole : opportunityContactRoleList){
@@ -105,5 +105,84 @@ public with sharing class OrderTriggerHandler {
 
     update contactList;
    }
-   
+   public static void checkUserRecords(List<Order> orderList) {
+    Set<Id> oppIdSet = new Set<Id>();
+    for (Order order : orderList) {
+        if (order.Status == 'Shipped' && order.OpportunityId != null) {
+            oppIdSet.add(order.OpportunityId);
+        }
+    }
+
+    List<OpportunityContactRole> opportunityContactRoleList = [Select Id, Contact.Id, Contact.Name, Contact.Email, OpportunityId, IsPrimary,Role from OpportunityContactRole where Role = 'Primary Support' and OpportunityId in :oppIdSet and Contact.Email != null];
+
+    Map<String, String> usernameToNameMap = new Map<String, String>();
+    for (OpportunityContactRole opportunityContactRole : opportunityContactRoleList) {
+        usernameToNameMap.put(opportunityContactRole.Contact.Email, opportunityContactRole.Contact.Name);
+    }
+
+    if (usernameToNameMap.size() == 0) return;
+
+    Profile customerCommunityLoginUserProfile = [Select Id, Name from Profile where Name = 'Customer Community Login User' limit 1];
+
+    List<User> userList = [Select Id, Name, Email, Username, IsActive from User where Username in :usernameToNameMap.keySet()];
+    Set<Id> userIdSet = new Set<Id>();
+    List<User> newUserList = new List<User>();
+    for (String username : usernameToNameMap.keySet()) {
+        Boolean isUserExists = false;
+        for (User iteratedUser : userList) {
+            if (iteratedUser.Username == username) {
+                isUserExists = true;
+                // User Exists
+                if (iteratedUser.IsActive != null && iteratedUser.IsActive == false) {
+                    iteratedUser.IsActive = true;
+                    userIdSet.add(iteratedUser.Id);
+                }
+            }
+        }
+
+        if (!isUserExists) {
+            Id contactId;
+            for (OpportunityContactRole opportunityContactRole : opportunityContactRoleList) {
+                if (opportunityContactRole.Contact.Email == username) {
+                    contactId = opportunityContactRole.Contact.Id;
+                    break;
+                }
+            }
+            User user = new User();
+            user.Username = username;
+            user.FirstName = usernameToNameMap.get(username);
+            user.LastName = usernameToNameMap.get(username);
+            user.Alias = usernameToNameMap.get(username).substring(0, 5);
+            user.Email = username;
+            user.TimeZoneSidKey = 'America/New_York';
+            user.LocaleSidKey = 'en_US';
+            user.EmailEncodingKey = 'ISO-8859-1';
+            user.ProfileId = customerCommunityLoginUserProfile.Id;
+            user.LanguageLocaleKey = 'en_US';
+            user.IsActive = true;
+            user.ContactId = contactId;
+
+            newUserList.add(user);
+        }
+    }
+
+    if (userIdSet.size() != 0) {
+        updateUserToActive(userIdSet);
+    }
+    if (newUserList.size() != 0) {
+        insert newUserList;
+    }
+
+}
+
+@future
+static void updateUserToActive(Set<Id> userIdSet) {
+    List<User> userList = [Select Id, IsActive from User where Id in :userIdSet];
+
+    for (User user : userList) {
+        user.IsActive = true;
+    }
+
+    update userList;
+}
 }
