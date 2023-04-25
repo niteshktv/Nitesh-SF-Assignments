@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assessment__c</fullName>
+    <externalId>false</externalId>
+    <label>Assessment</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Meets Expectations</fullName>
+                <default>false</default>
+                <label>Meets Expectations</label>
+            </value>
+            <value>
+                <fullName>Exceeds Expectations</fullName>
+                <default>false</default>
+                <label>Exceeds Expectations</label>
+            </value>
+            <value>
+                <fullName>Does Not Meet Expectations</fullName>
+                <default>false</default>
+                <label>Does Not Meet Expectations</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
