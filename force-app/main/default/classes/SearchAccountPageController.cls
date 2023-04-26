@@ -1,7 +1,7 @@
-public with sharing class CustomPaginationController {
-    public Account acc {get;set;}   
+public class SearchAccountPageController {
+	public Account acc {get;set;}   
     public ApexPages.StandardSetController con{get; set;} 
-    public CustomPaginationController (){
+    public SearchAccountPageController (){
        acc = new Account();
        lstAccount = new List<Account>();
     }
@@ -84,5 +84,5 @@ public with sharing class CustomPaginationController {
     }  
     public void next(){  
         con.next();  
-    }   
+    }
 }

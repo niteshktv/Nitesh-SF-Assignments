@@ -14,10 +14,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CustomPaginationController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>Exercise3</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -31,6 +27,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>OrderTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SearchAccountPageController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <custom>false</custom>
