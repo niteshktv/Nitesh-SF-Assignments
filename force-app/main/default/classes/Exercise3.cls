@@ -1,6 +1,6 @@
 public with sharing class Exercise3 {
     // returns all names of the consultants working for that employer as a list
-    public static List<Consultant__c> getConsultantListForEmployer(ID accountId) {
+    public static List<String> getConsultantListForEmployer(ID accountId) {
         List<Hiring__c> hiringList = [SELECT Consultant__r.Name FROM Hiring__c WHERE Employer__r.ID = :AccountID ];
         List<String> consultantsNameList = new List<String>();
         for(Hiring__c h : hiringList){
