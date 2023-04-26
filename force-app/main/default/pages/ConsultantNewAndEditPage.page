@@ -1,0 +1,24 @@
+<apex:page standardController="Consultant__c">
+    <head>
+        <meta charset="utf-8" />
+      	<meta name="viewport" content="width=device-width, initial-scale=1" />
+      	<title>Consulatant New Page</title>
+      	<apex:slds />
+    </head>
+    <body>
+        <apex:form >
+            <apex:pageBlock title="New Consulant Or Edit Consultant">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!Save}" value="Save Record"/>
+                <apex:commandButton action="{!Cancel}" value="Cancel"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:inputField value="{!Consultant__c.First_Name__c}"/>
+                <apex:inputField value="{!Consultant__c.Last_Name__c}"/>
+                <apex:inputField value="{!Consultant__c.Education__c}"/>
+                <apex:inputField value="{!Consultant__c.Sex__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        </apex:form>
+    </body>
+</apex:page>
