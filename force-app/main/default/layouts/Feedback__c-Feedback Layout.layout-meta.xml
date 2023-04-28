@@ -28,10 +28,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Describe_the_Nominee_with_an_example__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Do_you_have_any_concerns__c</field>
             </layoutItems>
             <layoutItems>
@@ -77,6 +73,10 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Nominator__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Please_describe_how_you_know__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns/>

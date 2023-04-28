@@ -18,6 +18,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>GetContact</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>GetSObjects</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -187,11 +191,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Feedback__c.Describe_the_Nominee_with_an_example__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Feedback__c.Do_you_have_any_concerns__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -233,6 +232,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Feedback__c.Personally_mean_to_be_MVP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Feedback__c.Please_describe_how_you_know__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

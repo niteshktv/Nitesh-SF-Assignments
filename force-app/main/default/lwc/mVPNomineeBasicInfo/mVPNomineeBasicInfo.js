@@ -1,11 +1,9 @@
 import { LightningElement, api } from 'lwc';
-import getFormFields from '@salesforce/apex/GetContact.getFormFields';
+import getContactFields from '@salesforce/apex/GetContact.getContactFields';
 export default class MVPNomineeBasicInfo extends LightningElement {
 
     // Flexipage provides recordId and objectApiName
     @api recordId;
-    @api objectApiName;
-
     @api fieldSet;
     @api title;
     @api columnView;
@@ -14,7 +12,8 @@ export default class MVPNomineeBasicInfo extends LightningElement {
     fields;
 
     connectedCallback(){
-        getFormFields({recordId:this.recordId, fieldSetName : this.fieldSet}).then(result =>{
+        
+        getContactFields({recordId:this.recordId, fieldSetName : this.fieldSet}).then(result =>{
             console.log(JSON.stringify(result));
             if(result){
                 this.objectName = Object.keys(result)[0];

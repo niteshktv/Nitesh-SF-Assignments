@@ -34,10 +34,6 @@
                 <field>No_Dreamforce_Attended__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Nomination_Count__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>MVP_Count__c</field>
             </layoutItems>
@@ -68,6 +64,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>TZ_Ideas_Last_Year__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Nomination_Count__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

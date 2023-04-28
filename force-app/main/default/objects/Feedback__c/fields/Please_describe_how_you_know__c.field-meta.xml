@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Describe_the_Nominee_with_an_example__c</fullName>
+    <fullName>Please_describe_how_you_know__c</fullName>
     <externalId>false</externalId>
     <label>Describe the Nominee with an example</label>
     <length>1000</length>
