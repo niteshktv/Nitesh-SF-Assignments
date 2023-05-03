@@ -1,13 +1,25 @@
 <template>
-    <lightning-card>
-        <h2>Contribution</h2>
+    <lightning-card title="Contribution">
+        <lightning-accordion>
+            <template for:each={results} for:item="con">
+                <lightning-accordion-section key={con.year} label={con.year}>
+                    <template for:each={con.contribution} for:item="contri">
+                        <div key={contri.Id}>
+                        <lightning-card >
+                            <lightning-record-form record-id={contri.Id} object-api-name={objectName}
+                                mode="readonly" fields={horizontalFieldSet} columns=3>
+                            </lightning-record-form>
+                            <lightning-record-form record-id={contri.Id} object-api-name={objectName}
+                                mode="readonly" fields={verticalFieldSet} columns=2>
+                            </lightning-record-form>
+                            <lightning-record-form record-id={contri.Id} object-api-name={objectName}
+                                mode="readonly" fields={detailFieldSet} columns=1>
+                            </lightning-record-form>
+                        </lightning-card>
+                    </div>
+                    </template>
+                </lightning-accordion-section>
+            </template>
+        </lightning-accordion>
     </lightning-card>
-    
-    <lightning-card>
-        <template if:true={results}>
-            <lightning-datatable key-field="Id" data={results} columns={columns}></lightning-datatable>
-            <lightning-datatable key-field="Id" data={results} columns={fields}></lightning-datatable>
-            <lightning-datatable key-field="Id" data={results} columns={detailFieldColumns}></lightning-datatable>
-        </template>
-    </lightning-card>
-</template> 
+</template>
