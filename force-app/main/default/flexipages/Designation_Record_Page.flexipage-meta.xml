@@ -32,18 +32,6 @@
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-26a3b591-804e-481d-ab76-799a454bfb73</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <name>Facet-27dd9bce-b1f3-40a7-a689-c0de9da381e1</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <name>Facet-f7e273a3-592a-4155-85f4-bcc3dfa5a631</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
@@ -57,46 +45,34 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-26a3b591-804e-481d-ab76-799a454bfb73</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Contribution</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab</identifier>
+                <componentName>mVPNomineeContributions</componentName>
+                <identifier>c_mVPNomineeContributions2</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-d05241f3-cfc5-4d8e-bdb6-ca077eadb2b1</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-27dd9bce-b1f3-40a7-a689-c0de9da381e1</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Self-feedback</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab2</identifier>
+                <componentName>mVPNomineeContributions</componentName>
+                <identifier>c_mVPNomineeContributions</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-e41qlmdv6ds</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-f7e273a3-592a-4155-85f4-bcc3dfa5a631</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Feedback</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab3</identifier>
+                <componentName>mVPNomineeContributions</componentName>
+                <identifier>c_mVPNomineeContributions3</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-85efe827-1282-4b67-83e7-c129f13dfd60</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -115,17 +91,53 @@
                 <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-d05241f3-cfc5-4d8e-bdb6-ca077eadb2b1</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Contribution</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-e41qlmdv6ds</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Self-feedback</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-85efe827-1282-4b67-83e7-c129f13dfd60</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Feedback</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab3</identifier>
+            </componentInstance>
+        </itemInstances>
         <mode>Replace</mode>
         <name>maintabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentName>mVPNomineeContributions</componentName>
-                <identifier>c_mVPNomineeContributions</identifier>
-            </componentInstance>
-        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
