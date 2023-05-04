@@ -10,9 +10,9 @@
     <targetConfigs>
         <targetConfig targets="lightning__RecordPage">
             <property name="fieldSet" type="String" label="Field Set" default="Contact_Field_Set"/>
-            <property name="title" type="String"  label="Title"/>
-            <property name="columnView" type="Integer" label="Column View"/>
-            <property name="showHeader" type="Boolean" label="Show Header" />
+            <property name="title" type="String"  label="Title" default="Basic Info"/>
+            <property name="columnView" type="Integer" label="Column View" default="2"/>
+            <property name="showHeader" type="Boolean" label="Show Header" default="true"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

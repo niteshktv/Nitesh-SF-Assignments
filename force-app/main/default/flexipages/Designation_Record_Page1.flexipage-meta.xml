@@ -115,7 +115,6 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Basic</value>
                 </componentInstanceProperties>
                 <componentName>mVPNomineeBasicInfo</componentName>
                 <identifier>c_mVPNomineeBasicInfo</identifier>
