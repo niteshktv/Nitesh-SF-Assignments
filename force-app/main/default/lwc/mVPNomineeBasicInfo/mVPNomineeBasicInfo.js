@@ -1,5 +1,6 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, wire } from 'lwc';
 import getContactFields from '@salesforce/apex/GetContact.getContactFields';
+import getContactAssociateContact from '@salesforce/apex/GetContact.getContactAssociateContact';
 export default class MVPNomineeBasicInfo extends LightningElement {
 
     // Flexipage provides recordId and objectApiName
@@ -10,17 +11,22 @@ export default class MVPNomineeBasicInfo extends LightningElement {
     @api showHeader;
     objectName;
     fields;
+    contactId;
 
-    connectedCallback(){
-        
-        getContactFields({recordId:this.recordId, fieldSetName : this.fieldSet}).then(result =>{
-            console.log(JSON.stringify(result));
-            if(result){
-                this.objectName = Object.keys(result)[0];
-                this.fields = result[Object.keys(result)[0]];
-            }
-        }).catch(error=>{
+    @wire(getContactAssociateContact, {designationId: '$recordId'})
+    wiredContact({data, error}){
+        if(data){
+            this.contactId = data;
+        }
+    }
+
+    @wire(getContactFields, {varContactId:'$contactId',fieldSetName : '$fieldSet' })
+    wiredFieldSet({data, error}){
+        if(data){
+            this.objectName = Object.keys(data)[0];
+            this.fields = data[Object.keys(data)];
+        }else if(error){
             console.log(error);
-        })
+        }
     } 
 }

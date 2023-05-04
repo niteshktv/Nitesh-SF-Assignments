@@ -1,8 +1,8 @@
 public with sharing class GetContact {
-    @AuraEnabled
-    public static Map<String, List<String>> getContactFields(Id recordId, String fieldSetName){
+    @AuraEnabled(cacheable=true)
+    public static Map<String, List<String>> getContactFields(Id varContactId, String fieldSetName){
 
-        Schema.SObjectType objectType = recordId.getSobjectType();
+        Schema.SObjectType objectType = varContactId.getSobjectType();
         Schema.DescribeSObjectResult objectDescribe = objectType.getDescribe();
         Map<String, Schema.FieldSet> fieldSetMap = objectDescribe.fieldSets.getMap();
 
@@ -19,5 +19,19 @@ public with sharing class GetContact {
         objectTypeToFieldsMap.put('' + objectType, sObjectFieldsList);
         
         return objectTypeToFieldsMap;
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static Id getContactAssociateContact(String designationId){
+        try {
+            Id contactId;
+            List<Designation__c> designationList = [SELECT Id, Name, Contact__r.Id FROM Designation__c WHERE Id= :designationId ];
+            for(Designation__c designation : designationList){
+                contactId = designation.Contact__r.Id;
+            }
+            return contactId;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
 }
