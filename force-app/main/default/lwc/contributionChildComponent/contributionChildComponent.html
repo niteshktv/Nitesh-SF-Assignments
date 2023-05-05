@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="feedbacks">
+        <lightning-accordion>
+            <template for:each={results} for:item="feed">
+                <lightning-accordion-section key={feed.year} label={feed.year}>
+                    <template for:each={feed.feedbacks} for:item="feedback">
+                        <div key={feedback.Id} class="slds-var-m-around_bottom">
+                        <lightning-card >
+                            <lightning-record-form record-id={feedback.Id} object-api-name={objectName}
+                                mode="readonly" fields={feedbackFieldSet} columns=2>
+                            </lightning-record-form>
+                        </lightning-card>
+                    </div>
+                    </template>
+                </lightning-accordion-section>
+            </template>
+        </lightning-accordion>
+    </lightning-card>
+</template>
