@@ -90,21 +90,21 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentName>mVPNomineeContributions</componentName>
-                <identifier>c_mVPNomineeContributions</identifier>
+                <componentName>contributionParentComponent</componentName>
+                <identifier>c_contributionParentComponent</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-907cd6c6-e1dc-478b-8de3-3f65b7bef202</name>
+        <name>Facet-f963228d-ff3b-4596-8a96-c663037381c5</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>contributionChildComponent</componentName>
-                <identifier>c_contributionChildComponent</identifier>
+                <componentName>selfFeedbackParentComponent</componentName>
+                <identifier>c_selfFeedbackParentComponent</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-8cc008a0-a548-49fb-bb11-baae78383bc4</name>
+        <name>Facet-eh2rcpje8ov</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -144,7 +144,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-907cd6c6-e1dc-478b-8de3-3f65b7bef202</value>
+                    <value>Facet-f963228d-ff3b-4596-8a96-c663037381c5</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
@@ -158,7 +158,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-8cc008a0-a548-49fb-bb11-baae78383bc4</value>
+                    <value>Facet-eh2rcpje8ov</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
