@@ -33,16 +33,16 @@ public with sharing class GetDesignationRecords {
             contactIdSet.add(designation.Contact__r.Id);
         }
 
-        List<Feedback__c> feedbackList = [SELECT Id,Date__c,RecordTypeId, Nominator__r.Id,Nominator__r.Name
+        List<Feedback__c> feedbackList = [SELECT Id,Date__c,RecordType.Name, Nominator__r.Id,Nominator__r.Name
                 FROM Feedback__c 
-                WHERE Nominator__r.Id IN :contactIdSet AND RecordTypeId='0129D000001jjBAQAY'];
+                WHERE Nominator__r.Id IN :contactIdSet AND RecordType.Name='Self-Feedback'];
 
         Map<Integer , List<Feedback__c>>  yearToFeedbackMap = new Map<Integer, List<Feedback__c>>();
         for(Feedback__c feedback : feedbackList){
             if (yearToFeedbackMap.containsKey(feedback.Date__c.year())) {
                 yearToFeedbackMap.get(feedback.Date__c.year()).add(feedback);
             } else {
-                List<feedback__c> newList = new List<feedback__c>();
+                List<Feedback__c> newList = new List<Feedback__c>();
                 newList.add(feedback);
                 yearToFeedbackMap.put(feedback.Date__c.year(), newList);
             }

@@ -1,7 +1,5 @@
-import { LightningElement,wire,api } from 'lwc';
-import { getObjectInfo } from 'lightning/uiObjectInfoApi';
+import { LightningElement, api,wire } from 'lwc';
 import getFeedbackAssociateWithDesignation from '@salesforce/apex/GetDesignationRecords.getFeedbackAssociateWithDesignation';
-import FEEDBACK_OBJECT_NAME from '@salesforce/schema/Feedback__c';
 import FEEDBACK_EXPERTISE from '@salesforce/schema/Feedback__c.Expertise__c';
 import FEEDBACK_ADVOCACY from '@salesforce/schema/Feedback__c.Advocacy__c';
 import FEEDBACK_LEADERSHIP from '@salesforce/schema/Feedback__c.Leadership__c';
@@ -14,7 +12,7 @@ import FEEDBACK_KNOW_NOMINEE from '@salesforce/schema/Feedback__c.Do_you_have_an
 import FEEDBACK_PRESONAL_MEAN from '@salesforce/schema/Feedback__c.Personally_mean_to_be_MVP__c';
 import FEEDBACK_RENEWED from '@salesforce/schema/Feedback__c.Should_you_be_renewed__c';
 
-export default class ContributionChildComponent extends LightningElement {
+export default class SelfFeedbackParentComponent extends LightningElement {
     feedbackFieldSet = [FEEDBACK_EXPERTISE,
         FEEDBACK_ADVOCACY,
         FEEDBACK_LEADERSHIP,
@@ -28,7 +26,7 @@ export default class ContributionChildComponent extends LightningElement {
         FEEDBACK_PRESONAL_MEAN,
         FEEDBACK_RENEWED
     ];
-    objectName;
+
     @api recordId;
     mainDataYear = [];
     mainDataFeedback = [];
@@ -37,9 +35,11 @@ export default class ContributionChildComponent extends LightningElement {
     results;
 
     @wire(getFeedbackAssociateWithDesignation, { designationId: '$recordId' })
-    wiredContribution({ data, error }) {
+    wiredContribution({data, error }) {
         if (data) {
-            console.log('Data >>>> ' + JSON.stringify(data));
+            console.log(' feedback Data >>>> ' + JSON.stringify(data));
+            this.mainDataYear = [];
+            this.mainDataFeedback = [];
             for (var i = 0; i < Object.keys(data).length; i++) {
                 this.mainDataYear.push(Object.keys(data)[i]);
                 this.mainDataFeedback.push(Object.values(data)[i]);
@@ -47,22 +47,13 @@ export default class ContributionChildComponent extends LightningElement {
             for (var i = 0; i < this.mainDataYear.length; i++) {
                 this.myData = {};
                 this.myData.year = this.mainDataYear[i];
-                this.myData.feedbacks = this.mainDataFeedback[i];
+                this.myData.values = this.mainDataFeedback[i];
 
                 this.mainData.push(this.myData);
             }
             this.results = this.mainData;
-            console.log(`mainData : ${JSON.stringify(this.mainData)}`);
+            console.log(`feedback mainData : ${JSON.stringify(this.mainData)}`);
 
-        } else if (error) {
-            console.log(error);
-        }
-    }
-    @wire(getObjectInfo, { objectApiName: FEEDBACK_OBJECT_NAME })
-    objectInfo({ data, error }) {
-        if (data) {
-            this.objectName = data.apiName;
-            console.log('objectApiName ' + this.objectName);
         } else if (error) {
             console.log(error);
         }
