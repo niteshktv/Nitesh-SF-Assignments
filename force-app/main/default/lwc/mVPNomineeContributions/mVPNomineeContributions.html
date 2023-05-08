@@ -1,9 +1,9 @@
 <template>
-    <lightning-card title="Contribution">
+    <lightning-card title={title}>
         <lightning-accordion>
             <template for:each={results} for:item="con">
                 <lightning-accordion-section key={con.year} label={con.year}>
-                    <template for:each={con.contribution} for:item="contri">
+                    <template for:each={con.values} for:item="contri">
                         <div key={contri.Id}>
                         <lightning-card >
                             <lightning-record-form record-id={contri.Id} object-api-name={objectName}
@@ -21,5 +21,5 @@
                 </lightning-accordion-section>
             </template>
         </lightning-accordion>
-    </lightning-card>
+    </lightning-card>   
 </template>

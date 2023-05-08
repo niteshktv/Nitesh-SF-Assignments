@@ -69,6 +69,48 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>columnView</name>
+                    <value>2</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>fieldSet</name>
+                    <value>Contact_Field_Set</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showHeader</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Basic Info</value>
+                </componentInstanceProperties>
+                <componentName>mVPNomineeBasicInfo</componentName>
+                <identifier>c_mVPNomineeBasicInfo</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>contributionParentComponent</componentName>
+                <identifier>c_contributionParentComponent</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-f963228d-ff3b-4596-8a96-c663037381c5</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>selfFeedbackParentComponent</componentName>
+                <identifier>c_selfFeedbackParentComponent</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-eh2rcpje8ov</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>body</name>
                     <value>relatedTabContent</value>
                 </componentInstanceProperties>
@@ -98,29 +140,39 @@
                 <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-f963228d-ff3b-4596-8a96-c663037381c5</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Contribution</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-eh2rcpje8ov</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Self-feedback</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab2</identifier>
+            </componentInstance>
+        </itemInstances>
         <mode>Replace</mode>
         <name>maintabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>columnView</name>
-                    <value>2</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>fieldSet</name>
-                    <value>Contact_Field_Set</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Basic</value>
-                </componentInstanceProperties>
-                <componentName>mVPNomineeBasicInfo</componentName>
-                <identifier>c_mVPNomineeBasicInfo</identifier>
-            </componentInstance>
-        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
