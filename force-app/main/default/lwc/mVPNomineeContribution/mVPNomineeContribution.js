@@ -1,5 +1,5 @@
 import { LightningElement,wire,api } from 'lwc';
-import getContactAssociatedWithDesignation from '@salesforce/apex/GetDesignationRecords.getContactAssociatedWithDesignation';
+import getContributionsAssociatedWithDesignation from '@salesforce/apex/DesignationController.getContributionsAssociatedWithDesignation';
 import CONTRIBUTION_NAME  from '@salesforce/schema/Contribution__c.Name';
 import CONTRIBUTION_CATEGORIES from '@salesforce/schema/Contribution__c.Pillars__c';
 import CONTRIBUTION_ASSESSMENT from '@salesforce/schema/Contribution__c.Assessment__c';
@@ -10,7 +10,7 @@ import CONTRIBUTION_GENEROSITY from '@salesforce/schema/Contribution__c.Generosi
 import CONTRIBUTION_DETAILS_FIELD from '@salesforce/schema/Contribution__c.Details__c';
 import CONTRIBUTION_NOTE_FIELD from '@salesforce/schema/Contribution__c.Note__c';
 
-export default class ContributionParentComponent extends LightningElement {
+export default class MVPNomineeContribution extends LightningElement {
     horizontalFieldSet = [CONTRIBUTION_NAME,CONTRIBUTION_CATEGORIES,CONTRIBUTION_ASSESSMENT ];
     verticalFieldSet = [CONTRIBUTION_EXPERTISE,CONTRIBUTION_ADVOCACY,CONTRIBUTION_LEADERSHIP, CONTRIBUTION_GENEROSITY ];
     detailFieldSet = [CONTRIBUTION_NOTE_FIELD,CONTRIBUTION_DETAILS_FIELD ];
@@ -23,11 +23,9 @@ export default class ContributionParentComponent extends LightningElement {
     myData = {};
     results;
 
-    @wire(getContactAssociatedWithDesignation, {designationId : '$recordId'})
+    @wire(getContributionsAssociatedWithDesignation, {designationId : '$recordId'})
     wiredContribution({data, error}){
         if(data){
-            console.log("Direct Data : "+data);
-            console.log(' Contibution Data >>>> ' + JSON.stringify(data));
             this.mainDataYear = [];
             this.mainDataContribution = [];
             for(var i=0; i<Object.keys(data).length; i++){
@@ -42,7 +40,6 @@ export default class ContributionParentComponent extends LightningElement {
                 this.mainData.push(this.myData);
             }
             this.results= this.mainData;
-            console.log(` Contibution mainData : ${JSON.stringify(this.mainData)}`);
 
         }else if(error){
             console.log(error);

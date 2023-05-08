@@ -22,7 +22,7 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetDesignationRecords</apexClass>
+        <apexClass>DesignationController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

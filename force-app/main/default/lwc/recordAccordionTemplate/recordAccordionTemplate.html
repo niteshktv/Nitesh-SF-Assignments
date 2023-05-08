@@ -1,18 +1,18 @@
 <template>
     <lightning-card title={title}>
         <lightning-accordion>
-            <template for:each={results} for:item="con">
-                <lightning-accordion-section key={con.year} label={con.year}>
-                    <template for:each={con.values} for:item="contri">
-                        <div key={contri.Id}>
+            <template for:each={results} for:item="result">
+                <lightning-accordion-section key={result.year} label={result.year}>
+                    <template for:each={result.values} for:item="item">
+                        <div key={item.Id}>
                         <lightning-card >
-                            <lightning-record-form record-id={contri.Id} object-api-name={objectName}
+                            <lightning-record-form record-id={item.Id} object-api-name={objectName}
                                 mode="readonly" fields={horizontalFieldSet} columns=3>
                             </lightning-record-form>
-                            <lightning-record-form record-id={contri.Id} object-api-name={objectName}
+                            <lightning-record-form record-id={item.Id} object-api-name={objectName}
                                 mode="readonly" fields={verticalFieldSet} columns=2>
                             </lightning-record-form>
-                            <lightning-record-form record-id={contri.Id} object-api-name={objectName}
+                            <lightning-record-form record-id={item.Id} object-api-name={objectName}
                                 mode="readonly" fields={detailFieldSet} columns=1>
                             </lightning-record-form>
                         </lightning-card>

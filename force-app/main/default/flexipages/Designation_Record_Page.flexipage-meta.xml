@@ -90,21 +90,21 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentName>contributionParentComponent</componentName>
-                <identifier>c_contributionParentComponent</identifier>
+                <componentName>mVPNomineeContribution</componentName>
+                <identifier>c_mVPNomineeContribution</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-f963228d-ff3b-4596-8a96-c663037381c5</name>
+        <name>Facet-721f300e-472e-4710-acfb-f1c85e835260</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>selfFeedbackParentComponent</componentName>
-                <identifier>c_selfFeedbackParentComponent</identifier>
+                <componentName>mVPNomineeSelfFeedback</componentName>
+                <identifier>c_mVPNomineeSelfFeedback</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-eh2rcpje8ov</name>
+        <name>Facet-4xwiq0z7tip</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -144,7 +144,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-f963228d-ff3b-4596-8a96-c663037381c5</value>
+                    <value>Facet-721f300e-472e-4710-acfb-f1c85e835260</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
@@ -158,7 +158,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-eh2rcpje8ov</value>
+                    <value>Facet-4xwiq0z7tip</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>

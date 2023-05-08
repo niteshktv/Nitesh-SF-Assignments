@@ -1,6 +1,6 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement,api } from 'lwc';
 
-export default class MVPNomineeContributions extends LightningElement {
+export default class RecordAccordionTemplate extends LightningElement {
     
     @api results
     @api horizontalFieldSet

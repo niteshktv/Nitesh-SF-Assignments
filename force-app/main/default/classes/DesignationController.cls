@@ -1,6 +1,6 @@
-public with sharing class GetDesignationRecords {
+public with sharing class DesignationController {
     @AuraEnabled(cacheable=true)
-    public static Map<Integer , List<Contribution__c>>  getContactAssociatedWithDesignation(String designationId){
+    public static Map<Integer , List<Contribution__c>>  getContributionsAssociatedWithDesignation(String designationId){
         List<Designation__c> designationList  = [Select Id, Name, Contact__r.LastName, Contact__r.Id FROM Designation__c WHERE Id= :designationId ];
         Set<Id> contactIdSet = new Set<Id>();
         for(Designation__c designation : designationList) {

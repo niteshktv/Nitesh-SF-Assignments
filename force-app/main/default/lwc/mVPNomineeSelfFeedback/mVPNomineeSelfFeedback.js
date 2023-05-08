@@ -1,5 +1,5 @@
 import { LightningElement, api,wire } from 'lwc';
-import getFeedbackAssociateWithDesignation from '@salesforce/apex/GetDesignationRecords.getFeedbackAssociateWithDesignation';
+import getFeedbackAssociateWithDesignation from '@salesforce/apex/DesignationController.getFeedbackAssociateWithDesignation';
 import FEEDBACK_EXPERTISE from '@salesforce/schema/Feedback__c.Expertise__c';
 import FEEDBACK_ADVOCACY from '@salesforce/schema/Feedback__c.Advocacy__c';
 import FEEDBACK_LEADERSHIP from '@salesforce/schema/Feedback__c.Leadership__c';
@@ -12,7 +12,7 @@ import FEEDBACK_KNOW_NOMINEE from '@salesforce/schema/Feedback__c.Do_you_have_an
 import FEEDBACK_PRESONAL_MEAN from '@salesforce/schema/Feedback__c.Personally_mean_to_be_MVP__c';
 import FEEDBACK_RENEWED from '@salesforce/schema/Feedback__c.Should_you_be_renewed__c';
 
-export default class SelfFeedbackParentComponent extends LightningElement {
+export default class MVPNomineeSelfFeedback extends LightningElement {
     feedbackFieldSet = [FEEDBACK_EXPERTISE,
         FEEDBACK_ADVOCACY,
         FEEDBACK_LEADERSHIP,
@@ -37,7 +37,6 @@ export default class SelfFeedbackParentComponent extends LightningElement {
     @wire(getFeedbackAssociateWithDesignation, { designationId: '$recordId' })
     wiredContribution({data, error }) {
         if (data) {
-            console.log(' feedback Data >>>> ' + JSON.stringify(data));
             this.mainDataYear = [];
             this.mainDataFeedback = [];
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -52,7 +51,6 @@ export default class SelfFeedbackParentComponent extends LightningElement {
                 this.mainData.push(this.myData);
             }
             this.results = this.mainData;
-            console.log(`feedback mainData : ${JSON.stringify(this.mainData)}`);
 
         } else if (error) {
             console.log(error);
