@@ -1,4 +1,4 @@
-public with sharing class GetContact {
+public with sharing class mVPNomineeBasicInfoController {
     @AuraEnabled(cacheable=true)
     public static Map<String, List<String>> getContactFields(Id varContactId, String fieldSetName){
 

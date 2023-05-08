@@ -1,6 +1,6 @@
 import { LightningElement, api, wire } from 'lwc';
-import getContactFields from '@salesforce/apex/GetContact.getContactFields';
-import getContactAssociateContact from '@salesforce/apex/GetContact.getContactAssociateContact';
+import getContactFields from '@salesforce/apex/mVPNomineeBasicInfoController.getContactFields';
+import getContactAssociateContact from '@salesforce/apex/mVPNomineeBasicInfoController.getContactAssociateContact';
 export default class MVPNomineeBasicInfo extends LightningElement {
 
     // Flexipage provides recordId and objectApiName
