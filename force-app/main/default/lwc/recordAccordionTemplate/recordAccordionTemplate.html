@@ -5,21 +5,27 @@
                 <lightning-accordion-section key={result.year} label={result.year}>
                     <template for:each={result.values} for:item="item">
                         <div key={item.Id}>
-                        <lightning-card >
-                            <lightning-record-form record-id={item.Id} object-api-name={objectName}
-                                mode="readonly" fields={horizontalFieldSet} columns=3>
-                            </lightning-record-form>
-                            <lightning-record-form record-id={item.Id} object-api-name={objectName}
-                                mode="readonly" fields={verticalFieldSet} columns=2>
-                            </lightning-record-form>
-                            <lightning-record-form record-id={item.Id} object-api-name={objectName}
-                                mode="readonly" fields={detailFieldSet} columns=1>
-                            </lightning-record-form>
-                        </lightning-card>
-                    </div>
+                            <lightning-card>
+                                <template if:true={isColThree}>
+                                    <lightning-record-form record-id={item.Id} object-api-name={objectName}
+                                        mode="readonly" fields={horizontalFieldSet} columns=3>
+                                    </lightning-record-form>
+                                </template>
+                                <template if:true={isColTwo}>
+                                    <lightning-record-form record-id={item.Id} object-api-name={objectName}
+                                        mode="readonly" fields={verticalFieldSet} columns=2>
+                                    </lightning-record-form>
+                                </template>
+                                <template if:true={isColOne}>
+                                    <lightning-record-form record-id={item.Id} object-api-name={objectName}
+                                        mode="readonly" fields={detailFieldSet} columns=1>
+                                    </lightning-record-form>
+                                </template>
+                            </lightning-card>
+                        </div>
                     </template>
                 </lightning-accordion-section>
             </template>
         </lightning-accordion>
-    </lightning-card>   
+    </lightning-card>
 </template>
