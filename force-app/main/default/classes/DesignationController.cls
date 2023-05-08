@@ -26,7 +26,7 @@ public with sharing class DesignationController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static Map<Integer, List<Feedback__c>> getFeedbackAssociateWithDesignation(String designationId){
+    public static Map<Integer, List<Feedback__c>> getSelfFeedbackAssociateWithDesignation(String designationId){
         List<Designation__c> designationList  = [Select Id,Contact__r.Id FROM Designation__c WHERE Id= :designationId ];
         Set<Id> contactIdSet = new Set<Id>();
         for(Designation__c designation : designationList) {

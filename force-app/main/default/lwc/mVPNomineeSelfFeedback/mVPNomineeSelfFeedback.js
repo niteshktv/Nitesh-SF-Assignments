@@ -1,5 +1,5 @@
 import { LightningElement, api,wire } from 'lwc';
-import getFeedbackAssociateWithDesignation from '@salesforce/apex/DesignationController.getFeedbackAssociateWithDesignation';
+import getSelfFeedbackAssociateWithDesignation from '@salesforce/apex/DesignationController.getSelfFeedbackAssociateWithDesignation';
 import FEEDBACK_EXPERTISE from '@salesforce/schema/Feedback__c.Expertise__c';
 import FEEDBACK_ADVOCACY from '@salesforce/schema/Feedback__c.Advocacy__c';
 import FEEDBACK_LEADERSHIP from '@salesforce/schema/Feedback__c.Leadership__c';
@@ -34,7 +34,7 @@ export default class MVPNomineeSelfFeedback extends LightningElement {
     myData = {};
     results;
 
-    @wire(getFeedbackAssociateWithDesignation, { designationId: '$recordId' })
+    @wire(getSelfFeedbackAssociateWithDesignation, { designationId: '$recordId' })
     wiredContribution({data, error }) {
         if (data) {
             this.mainDataYear = [];
