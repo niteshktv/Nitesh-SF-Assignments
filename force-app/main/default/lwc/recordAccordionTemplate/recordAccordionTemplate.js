@@ -1,4 +1,5 @@
 import { LightningElement,api } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation'
 
 export default class RecordAccordionTemplate extends NavigationMixin(LightningElement) {
     
@@ -16,6 +17,20 @@ export default class RecordAccordionTemplate extends NavigationMixin(LightningEl
 
     refresh() {
         location.reload();
+    }
+
+    createNewRecord(){
+        this[NavigationMixin.Navigate]({
+            type:'standard__objectPage',
+            attributes:{
+                objectApiName:'Feedback__c',
+                actionName:'new'
+            }
+        })
+    }
+
+    get isFeedbackObject(){
+        return (this.objectName === 'Feedback__c') ? true : false;
     }
     
     get isColOne() {

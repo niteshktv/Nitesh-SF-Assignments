@@ -1,5 +1,4 @@
 import { LightningElement,api, wire } from 'lwc';
-import {NavigationMixin} from 'lightning/navigation';
 
 import getFeedbackAssociateWithDesignation from '@salesforce/apex/DesignationController.getFeedbackAssociateWithDesignation';
 import FEEDBACK_EXPERTISE from '@salesforce/schema/Feedback__c.Expertise__c';
@@ -12,6 +11,7 @@ import FEEDBACK_ADVOCACY_RATING from '@salesforce/schema/Feedback__c.Advocacy_Ra
 import FEEDBACK_EXPERTISE_RATING from '@salesforce/schema/Feedback__c.Expertise_Rating__c';
 import FEEDBACK_LEADERSHIP_RATING from '@salesforce/schema/Feedback__c.Leadership_Rating__c';
 import FEEDBACK_GENEROSITY_RATING from '@salesforce/schema/Feedback__c.Generosity_Rating__c';
+
 
 export default class MVPNomineeFeedback extends LightningElement {
     horizontalFieldSet = [FEEDBACK_ADVOCACY_RATING,FEEDBACK_EXPERTISE_RATING, FEEDBACK_LEADERSHIP_RATING, FEEDBACK_GENEROSITY_RATING];
@@ -46,15 +46,5 @@ export default class MVPNomineeFeedback extends LightningElement {
         } else if (error) {
             console.log(error);
         }
-    }
-
-    createNewRecord(){
-        this[NavigationMixin.Navigate]({
-            type:'custom__objectPage',
-            attributes:{
-                objectApiName:'Feedback__c',
-                actionName:'new'
-            }
-        })
     }
 }

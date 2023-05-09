@@ -1,12 +1,19 @@
 <template>
     <div class="header-container">
         <h1 class="header-title slds-m-left_xx-medium">{title}</h1>
-        <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" class="slds-m-left_xx-small" title="Refresh" onclick={refresh}></lightning-button-icon>
+        <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" class="slds-m-left_xx-small"
+            title="Refresh" onclick={refresh}></lightning-button-icon>
     </div>
     <lightning-card>
         <lightning-accordion>
             <template for:each={results} for:item="result">
                 <lightning-accordion-section key={result.year} label={result.year}>
+                    <div class="my-button">
+                        <template if:true={isFeedbackObject}>
+                            <lightning-badge label={result.values.length}></lightning-badge>
+                            <lightning-button-icon variant="brand" icon-name="utility:add" size="x-small" class="slds-m-left_xx-small" onclick={createNewRecord}></lightning-button-icon>
+                        </template>
+                    </div>
                     <template for:each={result.values} for:item="item">
                         <div key={item.Id} class="slds-box slds-m-vertical_x_small slds-var-m-around_small">
                             <lightning-card>
