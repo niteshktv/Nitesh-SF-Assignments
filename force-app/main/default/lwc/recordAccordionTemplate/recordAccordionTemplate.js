@@ -1,6 +1,6 @@
 import { LightningElement,api } from 'lwc';
 
-export default class RecordAccordionTemplate extends LightningElement {
+export default class RecordAccordionTemplate extends NavigationMixin(LightningElement) {
     
     @api results
     @api horizontalFieldSet
@@ -9,16 +9,28 @@ export default class RecordAccordionTemplate extends LightningElement {
     @api objectName
     @api title
 
-    @api column
+    @api columnOne=0
+    @api columnTwo=0
+    @api columnThree=0
+    @api columnFour=0
+
+    refresh() {
+        location.reload();
+    }
+    
     get isColOne() {
-        return (this.column == 1) ? true : false;
+        return (this.columnOne == 1) ? true : false;
     }
 
     get isColTwo() {
-        return (this.column == 2) ? true : false;
+        return (this.columnTwo == 2) ? true : false;
     }
 
     get isColThree() {
-        return (this.column == 3) ? true : false;
+        return (this.columnThree == 3) ? true : false;
+    }
+
+    get isColFour() {
+        return (this.columnFour == 4) ? true : false;
     }
 }

@@ -1,0 +1,14 @@
+:host {
+  --slds-c-accordion-summary-color-background: rgb(243, 242, 242);
+}
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: large;
+    font-weight: bold;
+  }
+
+  .header-title {
+    margin: 0;
+  }

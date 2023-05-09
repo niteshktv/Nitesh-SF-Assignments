@@ -34,7 +34,7 @@ export default class MVPNomineeContribution extends LightningElement {
             }
             for (var i = 0; i < this.mainDataYear.length; i++) {
                 this.myData = {};
-                this.myData.year = this.mainDataYear[i];
+                this.myData.year = `${this.mainDataYear[i]} (${this.mainDataContribution[i].length})`;
                 this.myData.values = this.mainDataContribution[i];
                 
                 this.mainData.push(this.myData);
