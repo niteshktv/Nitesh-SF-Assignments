@@ -55,7 +55,7 @@ public with sharing class DesignationController {
     public static Map<Integer, List<Feedback__c>>  getFeedbackAssociateWithDesignation(String designationId){
         Id contactId  = [Select Id,Contact__r.Id FROM Designation__c WHERE Id= :designationId limit 1].Contact__r.Id;
 
-        List<Feedback__c> feedbackList = [SELECT Id,Date__c,RecordType.Name, Nominator__r.Id,Nominator__r.Name
+        List<Feedback__c> feedbackList = [SELECT Id,Date__c,RecordType.Name,Advocacy_Rating__c,Expertise_Rating__c,Generosity_Rating__c,Leadership_Rating__c, Nominator__r.Id,Nominator__r.Name
                 FROM Feedback__c 
                 WHERE Nominator__r.Id = :contactId AND RecordType.Name='Feedback'];
 

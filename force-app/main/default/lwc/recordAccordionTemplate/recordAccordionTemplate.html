@@ -1,4 +1,5 @@
 <template>
+    <div class="slds-box">
     <div class="header-container">
         <h1 class="header-title slds-m-left_xx-medium">{title}</h1>
         <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" class="slds-m-left_xx-small"
@@ -9,40 +10,64 @@
             <template for:each={results} for:item="result">
                 <lightning-accordion-section key={result.year} label={result.year}>
                     <div class="my-button">
-                        <template if:true={isFeedbackObject}>
-                            <lightning-badge label={result.values.length}></lightning-badge>
-                            <lightning-button-icon variant="brand" icon-name="utility:add" size="x-small" class="slds-m-left_xx-small" onclick={createNewRecord}></lightning-button-icon>
+                        <template if:true={showAverage}>
+                            <div class="slds-box slds-m-vertical_x_small slds-var-m-around_small background">
+                                <lightning-card title="Average">
+                                    <div class="my-class background">
+                                        <div class="flex">
+                                            <h4>Advocacy (Rating)</h4>
+                                            <p>{result.averageAdvocacy}</p>
+                                        </div>
+                                        <div class="flex">
+                                            <h4>Expertise (Rating)</h4>
+                                            <p>{result.averageExpertise}</p>
+                                        </div>
+                                        <div class="flex">
+                                            <h4>Generosity (Rating)</h4>
+                                            <p>{result.averageGenerosity}</p>
+                                        </div>
+                                        <div class="flex">
+                                            <h4>Leadership (Rating)</h4>
+                                            <p>{result.averageLeadership}</p>
+                                        </div>
+                                        <div class="flex">
+                                            <h4>Overall Average Rating</h4>
+                                            <p>{result.overallAverageRating}</p>
+                                        </div>
+                                    </div>
+                                </lightning-card>
+                            </div>
+                            <div class="custom-class">
+                                <lightning-badge label={result.values.length}></lightning-badge>
+                                <lightning-button-icon variant="brand" icon-name="utility:add" size="x-small"
+                                    class="slds-m-left_xx-small" onclick={createNewRecord}></lightning-button-icon>
+                            </div>
                         </template>
                     </div>
-                    <template for:each={result.values} for:item="item">
-                        <div key={item.Id} class="slds-box slds-m-vertical_x_small slds-var-m-around_small">
-                            <lightning-card>
-                                <template if:true={isColThree}>
+                    <div>
+                        <template for:each={result.values} for:item="item">
+                            <div key={item.Id} class="slds-box slds-m-vertical_x_small slds-var-m-around_small">
+                                <lightning-card>
                                     <lightning-record-form record-id={item.Id} object-api-name={objectName}
-                                        mode="readonly" fields={horizontalFieldSet} columns=3>
+                                        mode="readonly" fields={horizontalFieldSet} columns={horizontalColumn}>
                                     </lightning-record-form>
-                                </template>
-                                <template if:true={isColTwo}>
-                                    <lightning-record-form record-id={item.Id} object-api-name={objectName}
-                                        mode="readonly" fields={verticalFieldSet} columns=2>
-                                    </lightning-record-form>
-                                </template>
-                                <template if:true={isColFour}>
-                                    <lightning-record-form record-id={item.Id} object-api-name={objectName}
-                                        mode="readonly" fields={horizontalFieldSet} columns=4>
-                                    </lightning-record-form>
-                                </template>
-                                <template if:true={isColOne}>
-                                    <lightning-record-form record-id={item.Id} object-api-name={objectName}
-                                        mode="readonly" fields={detailFieldSet} columns=1>
-                                    </lightning-record-form>
-                                </template>
-                            </lightning-card>
-                        </div>
-                    </template>
+                                    <template if:true={isColTwo}>
+                                        <lightning-record-form record-id={item.Id} object-api-name={objectName}
+                                            mode="readonly" fields={verticalFieldSet} columns={verticalColumn}>
+                                        </lightning-record-form>
+                                    </template>
+                                    <template if:true={isColOne}>
+                                        <lightning-record-form record-id={item.Id} object-api-name={objectName}
+                                            mode="readonly" fields={detailFieldSet} columns={detailColumn}>
+                                        </lightning-record-form>
+                                    </template>
+                                </lightning-card>
+                            </div>
+                        </template>
+                    </div>
                 </lightning-accordion-section>
             </template>
         </lightning-accordion>
     </lightning-card>
-
+</div>
 </template>

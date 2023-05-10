@@ -10,11 +10,11 @@ export default class RecordAccordionTemplate extends NavigationMixin(LightningEl
     @api objectName
     @api title
 
-    @api columnOne=0
-    @api columnTwo=0
-    @api columnThree=0
-    @api columnFour=0
+    @api verticalColumn=0
+    @api horizontalColumn=0
+    @api detailColumn=0
 
+    @api showAverage=false
     refresh() {
         location.reload();
     }
@@ -34,18 +34,10 @@ export default class RecordAccordionTemplate extends NavigationMixin(LightningEl
     }
     
     get isColOne() {
-        return (this.columnOne == 1) ? true : false;
+        return (this.detailColumn == 1) ? true : false;
     }
 
     get isColTwo() {
-        return (this.columnTwo == 2) ? true : false;
-    }
-
-    get isColThree() {
-        return (this.columnThree == 3) ? true : false;
-    }
-
-    get isColFour() {
-        return (this.columnFour == 4) ? true : false;
+        return (this.verticalColumn == 2) ? true : false;
     }
 }
