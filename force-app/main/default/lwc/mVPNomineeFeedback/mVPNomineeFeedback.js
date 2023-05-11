@@ -19,10 +19,10 @@ export default class MVPNomineeFeedback extends LightningElement {
     detailFieldSet = [FEEDBACK_EXPERTISE, FEEDBACK_ADVOCACY, FEEDBACK_LEADERSHIP, FEEDBACK_GENEROSITY];
 
     @api recordId;
-    mainDataYear = [];
-    mainDataFeedback = [];
-    mainData = [];
-    myData = {};
+    yearData = [];
+    feedbackData = [];
+    arrayOfYearToFeedbackObject = [];
+    yearToFeedbackObject = {};
     results;
     averageAdvocacyRating = 0;
     averageExpertiseRating = 0;
@@ -33,35 +33,34 @@ export default class MVPNomineeFeedback extends LightningElement {
     wiredContribution({ data, error }) {
         if (data) {
             for (var i = 0; i < Object.keys(data).length; i++) {
-                this.mainDataYear.push(Object.keys(data)[i]);
-                this.mainDataFeedback.push(Object.values(data)[i]);
+                this.yearData.push(Object.keys(data)[i]);
+                this.feedbackData.push(Object.values(data)[i]);
             }
 
-            for (var i = 0; i < this.mainDataYear.length; i++) {
-                this.myData = {};
-                this.myData.year = `${this.mainDataYear[i]} (${this.mainDataFeedback[i].length})`;
-                this.myData.values = this.mainDataFeedback[i];
-                for (var k = 0; k < this.mainDataFeedback[i].length; k++) {
-                    this.averageAdvocacyRating += this.mainDataFeedback[i][k].Advocacy_Rating__c;
-                    this.averageExpertiseRating += this.mainDataFeedback[i][k].Expertise_Rating__c;
-                    this.averageGenerosityRating += this.mainDataFeedback[i][k].Generosity_Rating__c;
-                    this.averageLeadershipRating += this.mainDataFeedback[i][k].Leadership_Rating__c;
+            for (var i = 0; i < this.yearData.length; i++) {
+                this.yearToFeedbackObject = {};
+                this.yearToFeedbackObject.year = `${this.yearData[i]} (${this.feedbackData[i].length})`;
+                this.yearToFeedbackObject.values = this.feedbackData[i];
+                for (var k = 0; k < this.feedbackData[i].length; k++) {
+                    this.averageAdvocacyRating += this.feedbackData[i][k].Advocacy_Rating__c;
+                    this.averageExpertiseRating += this.feedbackData[i][k].Expertise_Rating__c;
+                    this.averageGenerosityRating += this.feedbackData[i][k].Generosity_Rating__c;
+                    this.averageLeadershipRating += this.feedbackData[i][k].Leadership_Rating__c;
 
                 }
-                this.myData.averageAdvocacy = this.averageAdvocacyRating / this.mainDataFeedback[i].length;
-                this.myData.averageExpertise = this.averageExpertiseRating / this.mainDataFeedback[i].length;
-                this.myData.averageGenerosity = this.averageGenerosityRating / this.mainDataFeedback[i].length;
-                this.myData.averageLeadership = this.averageLeadershipRating / this.mainDataFeedback[i].length;
-                this.myData.overallAverageRating = (this.averageAdvocacyRating + this.averageExpertiseRating + this.averageGenerosityRating + this.averageLeadershipRating) / 4;
-                this.mainData.push(this.myData);
+                this.yearToFeedbackObject.averageAdvocacy = (this.averageAdvocacyRating / this.feedbackData[i].length).toFixed(2);
+                this.yearToFeedbackObject.averageExpertise = (this.averageExpertiseRating / this.feedbackData[i].length).toFixed(2);
+                this.yearToFeedbackObject.averageGenerosity = (this.averageGenerosityRating / this.feedbackData[i].length).toFixed(2);
+                this.yearToFeedbackObject.averageLeadership = (this.averageLeadershipRating / this.feedbackData[i].length).toFixed(2);
+                this.yearToFeedbackObject.overallAverageRating = (this.averageAdvocacyRating + this.averageExpertiseRating + this.averageGenerosityRating + this.averageLeadershipRating) / 4;
+                this.arrayOfYearToFeedbackObject.push(this.yearToFeedbackObject);
 
                 this.averageAdvocacyRating = 0;
                 this.averageExpertiseRating = 0;
                 this.averageGenerosityRating = 0;
                 this.averageLeadershipRating = 0;
             }
-            console.log('MainData : ' + JSON.stringify(this.mainData));
-            this.results = this.mainData;
+            this.results = this.arrayOfYearToFeedbackObject;
 
         } else if (error) {
             console.log(error);

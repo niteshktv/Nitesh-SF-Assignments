@@ -28,29 +28,27 @@ export default class MVPNomineeSelfFeedback extends LightningElement {
     ];
 
     @api recordId;
-    mainDataYear = [];
-    mainDataFeedback = [];
-    mainData = [];
-    myData = {};
+    yearData = [];
+    feedbackData = [];
+    arrayOfYearToFeedbackObject = [];
+    yearToFeedbackObject = {};
     results;
 
     @wire(getSelfFeedbackAssociateWithDesignation, { designationId: '$recordId' })
     wiredContribution({data, error }) {
         if (data) {
-            this.mainDataYear = [];
-            this.mainDataFeedback = [];
             for (var i = 0; i < Object.keys(data).length; i++) {
-                this.mainDataYear.push(Object.keys(data)[i]);
-                this.mainDataFeedback.push(Object.values(data)[i]);
+                this.yearData.push(Object.keys(data)[i]);
+                this.feedbackData.push(Object.values(data)[i]);
             }
-            for (var i = 0; i < this.mainDataYear.length; i++) {
-                this.myData = {};
-                this.myData.year = `${this.mainDataYear[i]} (${this.mainDataFeedback[i].length})`;
-                this.myData.values = this.mainDataFeedback[i];
+            for (var i = 0; i < this.yearData.length; i++) {
+                this.yearToFeedbackObject = {};
+                this.yearToFeedbackObject.year = `${this.yearData[i]} (${this.feedbackData[i].length})`;
+                this.yearToFeedbackObject.values = this.feedbackData[i];
 
-                this.mainData.push(this.myData);
+                this.arrayOfYearToFeedbackObject.push(this.yearToFeedbackObject);
             }
-            this.results = this.mainData;
+            this.results = this.arrayOfYearToFeedbackObject;
 
         } else if (error) {
             console.log(error);

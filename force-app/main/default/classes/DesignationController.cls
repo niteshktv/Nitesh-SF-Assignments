@@ -16,9 +16,9 @@ public with sharing class DesignationController {
             if (yearToContributionMap.containsKey(contribution.Date__c.year())) {
                 yearToContributionMap.get(contribution.Date__c.year()).add(contribution);
             } else {
-                List<Contribution__c> newList = new List<Contribution__c>();
-                newList.add(contribution);
-                yearToContributionMap.put(contribution.Date__c.year(), newList);
+                List<Contribution__c> newContributionListList = new List<Contribution__c>();
+                newContributionListList.add(contribution);
+                yearToContributionMap.put(contribution.Date__c.year(), newContributionListList);
             }
         }     
         
@@ -42,9 +42,9 @@ public with sharing class DesignationController {
             if (yearToFeedbackMap.containsKey(feedback.Date__c.year())) {
                 yearToFeedbackMap.get(feedback.Date__c.year()).add(feedback);
             } else {
-                List<Feedback__c> newList = new List<Feedback__c>();
-                newList.add(feedback);
-                yearToFeedbackMap.put(feedback.Date__c.year(), newList);
+                List<Feedback__c> newFeedbackList = new List<Feedback__c>();
+                newFeedbackList.add(feedback);
+                yearToFeedbackMap.put(feedback.Date__c.year(), newFeedbackList);
             }
         }     
         
@@ -64,9 +64,9 @@ public with sharing class DesignationController {
             if (yearToFeedbackMap.containsKey(feedback.Date__c.year())) {
                 yearToFeedbackMap.get(feedback.Date__c.year()).add(feedback);
             } else {
-                List<Feedback__c> newList = new List<Feedback__c>();
-                newList.add(feedback);
-                yearToFeedbackMap.put(feedback.Date__c.year(), newList);
+                List<Feedback__c> newFeedbackList = new List<Feedback__c>();
+                newFeedbackList.add(feedback);
+                yearToFeedbackMap.put(feedback.Date__c.year(), newFeedbackList);
             }
         }     
         

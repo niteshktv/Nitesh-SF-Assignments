@@ -13,11 +13,7 @@
   margin: 0;
 }
 
-.new-button{
-  float: right;
-}
-
-.my-class{
+.flex{
   display: flex;
   align-items: center;
   justify-content: space-between;
