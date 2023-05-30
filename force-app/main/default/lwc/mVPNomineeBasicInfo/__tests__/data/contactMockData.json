@@ -1,0 +1,8 @@
+{
+    "Contact": [
+        "No_Dreamforce_Attended__c",
+        "MVP_Count__c",
+        "Feedback_Rating_Count__c",
+        "Nomination_Count__c"
+    ]
+}
