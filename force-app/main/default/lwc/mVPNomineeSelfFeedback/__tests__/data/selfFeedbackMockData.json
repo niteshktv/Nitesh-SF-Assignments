@@ -1,0 +1,20 @@
+
+    {
+        "year": "2023 (1)",
+        "values": [
+            {
+                "Id": "a041y000004DEK2AAO",
+                "Date__c": "2023-05-26",
+                "RecordTypeId": "0121y000002fa4kAAA",
+                "Nominator__c": "0031y00000Uu263AAB",
+                "RecordType": {
+                    "Name": "Self-feedback",
+                    "Id": "0121y000002fa4kAAA"
+                },
+                "Nominator__r": {
+                    "Id": "0031y00000Uu263AAB",
+                    "Name": "Mohit Singh"
+                }
+            }
+        ]
+    }

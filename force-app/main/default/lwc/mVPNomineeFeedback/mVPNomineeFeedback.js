@@ -61,7 +61,6 @@ export default class MVPNomineeFeedback extends LightningElement {
                 this.averageLeadershipRating = 0;
             }
             this.results = this.arrayOfYearToFeedbackObject;
-
         } else if (error) {
             console.log(error);
         }
