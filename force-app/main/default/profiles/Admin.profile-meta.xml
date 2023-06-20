@@ -14,15 +14,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>DesignationController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>Exercise3</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GetContact</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>DesignationController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -631,6 +631,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Feedback__c.Do_you_have_any_concerns__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Feedback__c.Email__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

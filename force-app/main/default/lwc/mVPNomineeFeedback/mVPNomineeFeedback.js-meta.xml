@@ -7,5 +7,5 @@
         <target>lightning__HomePage</target>
         <target>lightning__RecordPage</target>
     </targets>
-    <masterLabel>Nominee Self Feedback Component</masterLabel>
+    <masterLabel>Nominee Feedback Component</masterLabel>
 </LightningComponentBundle>

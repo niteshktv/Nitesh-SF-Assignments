@@ -78,6 +78,10 @@
                 <behavior>Edit</behavior>
                 <field>Please_describe_how_you_know__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Email__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsTopToBottom</style>

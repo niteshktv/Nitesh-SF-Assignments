@@ -1,6 +1,7 @@
 import { LightningElement,api } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation'
 
-export default class RecordAccordionTemplate extends LightningElement {
+export default class RecordAccordionTemplate extends NavigationMixin(LightningElement) {
     
     @api results
     @api horizontalFieldSet
@@ -9,16 +10,34 @@ export default class RecordAccordionTemplate extends LightningElement {
     @api objectName
     @api title
 
-    @api column
+    @api verticalColumn=0
+    @api horizontalColumn=0
+    @api detailColumn=0
+
+    @api showAverage=false
+    refresh() {
+        location.reload();
+    }
+
+    createNewRecord(){
+        this[NavigationMixin.Navigate]({
+            type:'standard__objectPage',
+            attributes:{
+                objectApiName:'Feedback__c',
+                actionName:'new'
+            }
+        })
+    }
+
+    get isFeedbackObject(){
+        return (this.objectName === 'Feedback__c') ? true : false;
+    }
+    
     get isColOne() {
-        return (this.column == 1) ? true : false;
+        return (this.detailColumn == 1) ? true : false;
     }
 
     get isColTwo() {
-        return (this.column == 2) ? true : false;
-    }
-
-    get isColThree() {
-        return (this.column == 3) ? true : false;
+        return (this.verticalColumn == 2) ? true : false;
     }
 }

@@ -17,29 +17,27 @@ export default class MVPNomineeContribution extends LightningElement {
     objectName='Contribution__c'
 
     @api recordId;
-    mainDataYear = [];
-    mainDataContribution = [];
-    mainData = [];
-    myData = {};
+    yearData = [];
+    contributionData = [];
+    arrayOfYearToContributionObject = [];
+    yearToContributionObject = {};
     results;
 
     @wire(getContributionsAssociatedWithDesignation, {designationId : '$recordId'})
     wiredContribution({data, error}){
         if(data){
-            this.mainDataYear = [];
-            this.mainDataContribution = [];
             for(var i=0; i<Object.keys(data).length; i++){
-                this.mainDataYear.push(Object.keys(data)[i]);
-                this.mainDataContribution.push(Object.values(data)[i]);
+                this.yearData.push(Object.keys(data)[i]);
+                this.contributionData.push(Object.values(data)[i]);
             }
-            for (var i = 0; i < this.mainDataYear.length; i++) {
-                this.myData = {};
-                this.myData.year = this.mainDataYear[i];
-                this.myData.values = this.mainDataContribution[i];
+            for (var i = 0; i < this.yearData.length; i++) {
+                this.yearToContributionObject = {};
+                this.yearToContributionObject.year = `${this.yearData[i]} (${this.contributionData[i].length})`;
+                this.yearToContributionObject.values = this.contributionData[i];
                 
-                this.mainData.push(this.myData);
+                this.arrayOfYearToContributionObject.push(this.yearToContributionObject);
             }
-            this.results= this.mainData;
+            this.results= this.arrayOfYearToContributionObject;
 
         }else if(error){
             console.log(error);

@@ -1,13 +1,14 @@
 <template>
     <c-record-accordion-template 
         results={results} 
-        horizontal-field-set={horizontalFieldSet}
+        horizontal-field-set={horizontalFieldSet} 
         vertical-field-set={verticalFieldSet}
         detail-field-set={detailFieldSet} 
-        object-name="Contribution__c" 
-        title="Contributions"
-        detail-column="1"
+        object-name="Feedback__c" 
+        title="Feedback" 
+        horizontal-column="4"
         vertical-column="2"
-        horizontal-column="3"
+        detail-column="1"
+        show-average=true
         ></c-record-accordion-template>
 </template>
